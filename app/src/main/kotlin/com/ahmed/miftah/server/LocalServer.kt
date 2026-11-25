@@ -10,22 +10,25 @@ import org.json.JSONObject
 import java.io.ByteArrayInputStream
 
 /**
- * OpenAI-compatible local server bound to 127.0.0.1 only.
+ * OpenAI-compatible local server. Bound to 127.0.0.1 by default; when the user
+ * opts into network reach ([networkMode]) it binds 0.0.0.0 so other devices on
+ * the same LAN / Tailscale network can connect.
  *  POST /v1/chat/completions — routes through the gateway Router (non-streaming;
  *      a "stream":true request is answered with a single-chunk SSE stream).
  *  GET  /v1/models — the fallback-chain models.
- * Every request must carry the app-generated unified key as a Bearer token.
+ * Every request — in BOTH bind modes, before any routing — must carry the
+ * app-generated unified key as a Bearer token (see [ServerNet.isAuthorized]).
  */
 class LocalServer(
     port: Int,
     private val router: Router,
     private val unifiedKey: () -> String,
-    private val chainModels: () -> List<Pair<String, String>>
-) : NanoHTTPD("127.0.0.1", port) {
+    private val chainModels: () -> List<Pair<String, String>>,
+    networkMode: Boolean = false
+) : NanoHTTPD(ServerNet.bindHost(networkMode), port) {
 
     override fun serve(session: IHTTPSession): Response {
-        val auth = session.headers["authorization"] ?: ""
-        if (auth != "Bearer ${unifiedKey()}") {
+        if (!ServerNet.isAuthorized(session.headers["authorization"], unifiedKey())) {
             return json(401, JSONObject().put("error", JSONObject().put("message", "Invalid API key")))
         }
         return try {
