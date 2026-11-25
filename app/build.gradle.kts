@@ -1,1 +1,92 @@
-aW1wb3J0IGphdmEuaW8uRmlsZUlucHV0U3RyZWFtCmltcG9ydCBqYXZhLnV0aWwuUHJvcGVydGllcwoKcGx1Z2lucyB7CiAgICBpZCgiY29tLmFuZHJvaWQuYXBwbGljYXRpb24iKQogICAgaWQoIm9yZy5qZXRicmFpbnMua290bGluLmFuZHJvaWQiKQogICAgaWQoImNvbS5jaGFxdW8ucHl0aG9uIikKfQoKdmFsIGtleXN0b3JlUHJvcHNGaWxlID0gcm9vdFByb2plY3QuZmlsZSgia2V5c3RvcmUucHJvcGVydGllcyIpCnZhbCBrZXlzdG9yZVByb3BzID0gUHJvcGVydGllcygpCmlmIChrZXlzdG9yZVByb3BzRmlsZS5leGlzdHMoKSkgewogICAga2V5c3RvcmVQcm9wcy5sb2FkKEZpbGVJbnB1dFN0cmVhbShrZXlzdG9yZVByb3BzRmlsZSkpCn0KCmFuZHJvaWQgewogICAgbmFtZXNwYWNlID0gImNvbS5haG1lZC5taWZ0YWgiCiAgICBjb21waWxlU2RrID0gMzUKCiAgICBkZWZhdWx0Q29uZmlnIHsKICAgICAgICBhcHBsaWNhdGlvbklkID0gImNvbS5haG1lZC5taWZ0YWgiCiAgICAgICAgbWluU2RrID0gMjYKICAgICAgICB0YXJnZXRTZGsgPSAzNQogICAgICAgIHZlcnNpb25Db2RlID0gMgogICAgICAgIHZlcnNpb25OYW1lID0gIjEuMC4xIgoKICAgICAgICAvLyBDaGFxdW9weSBzaGlwcyBhIG5hdGl2ZSBpbnRlcnByZXRlciBwZXIgQUJJOyBhcm02NC12OGEgb25seSBrZWVwcwogICAgICAgIC8vIHRoZSBBUEsgbGVhbiAoY292ZXJzIEFobWVkJ3MgZGV2aWNlcykuIEFkZCAieDg2XzY0IiBoZXJlIGZvcgogICAgICAgIC8vIGVtdWxhdG9yIGJ1aWxkcyBhdCB+KzE1IE1CLgogICAgICAgIG5kayB7CiAgICAgICAgICAgIGFiaUZpbHRlcnMgKz0gImFybTY0LXY4YSIKICAgICAgICB9CiAgICB9CgogICAgc2lnbmluZ0NvbmZpZ3MgewogICAgICAgIGNyZWF0ZSgicmVsZWFzZSIpIHsKICAgICAgICAgICAgaWYgKGtleXN0b3JlUHJvcHNGaWxlLmV4aXN0cygpKSB7CiAgICAgICAgICAgICAgICBzdG9yZUZpbGUgPSByb290UHJvamVjdC5maWxlKGtleXN0b3JlUHJvcHMuZ2V0UHJvcGVydHkoInN0b3JlRmlsZSIpKQogICAgICAgICAgICAgICAgc3RvcmVQYXNzd29yZCA9IGtleXN0b3JlUHJvcHMuZ2V0UHJvcGVydHkoInN0b3JlUGFzc3dvcmQiKQogICAgICAgICAgICAgICAga2V5QWxpYXMgPSBrZXlzdG9yZVByb3BzLmdldFByb3BlcnR5KCJrZXlBbGlhcyIpCiAgICAgICAgICAgICAgICBrZXlQYXNzd29yZCA9IGtleXN0b3JlUHJvcHMuZ2V0UHJvcGVydHkoImtleVBhc3N3b3JkIikKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KCiAgICBidWlsZFR5cGVzIHsKICAgICAgICByZWxlYXNlIHsKICAgICAgICAgICAgc2lnbmluZ0NvbmZpZyA9IHNpZ25pbmdDb25maWdzLmdldEJ5TmFtZSgicmVsZWFzZSIpCiAgICAgICAgICAgIGlzTWluaWZ5RW5hYmxlZCA9IGZhbHNlCiAgICAgICAgICAgIGlzU2hyaW5rUmVzb3VyY2VzID0gZmFsc2UKICAgICAgICB9CiAgICB9CgogICAgY29tcGlsZU9wdGlvbnMgewogICAgICAgIHNvdXJjZUNvbXBhdGliaWxpdHkgPSBKYXZhVmVyc2lvbi5WRVJTSU9OXzE3CiAgICAgICAgdGFyZ2V0Q29tcGF0aWJpbGl0eSA9IEphdmFWZXJzaW9uLlZFUlNJT05fMTcKICAgIH0KICAgIGtvdGxpbk9wdGlvbnMgewogICAgICAgIGp2bVRhcmdldCA9ICIxNyIKICAgIH0KICAgIGJ1aWxkRmVhdHVyZXMgewogICAgICAgIHZpZXdCaW5kaW5nID0gdHJ1ZQogICAgICAgIGJ1aWxkQ29uZmlnID0gdHJ1ZQogICAgfQp9CgovLyBTdGFnZSAzOiBlbWJlZGRlZCBDUHl0aG9uIDMuMTEgZm9yIHNraWxsIHNjcmlwdHMuIFB5dGhvbiBzb3VyY2VzIGxpdmUgaW4KLy8gc3JjL21haW4vcHl0aG9uOyBwaXAgcmVxdWlyZW1lbnRzIHN0YXkgZW1wdHkgYnkgZGVmYXVsdCAoc2VlCi8vIHNyYy9tYWluL3B5dGhvbi9yZXF1aXJlbWVudHMudHh0KSDigJQgc3RkbGliIG9ubHkuCi8vIE5PVEU6IENoYXF1b3B5IDE1J3MgRFNMIGlzIHRoaXMgcHJvamVjdC1sZXZlbCBgY2hhcXVvcHlgIGJsb2NrLiBUaGUgb2xkCi8vIGBhbmRyb2lkLmRlZmF1bHRDb25maWcucHl0aG9uIHt9YCBmb3JtIGlzIGEgZGVwcmVjYXRlZCBEU0wgYXZhaWxhYmxlIGluCi8vIEdyb292eSBidWlsZCBmaWxlcyBvbmx5IOKAlCBpbiBLb3RsaW4gRFNMIGl0IGZhaWxzIHdpdGgKLy8gIlVucmVzb2x2ZWQgcmVmZXJlbmNlOiBweXRob24iLgpjaGFxdW9weSB7CiAgICBkZWZhdWx0Q29uZmlnIHsKICAgICAgICB2ZXJzaW9uID0gIjMuMTEiCiAgICB9Cn0KCmRlcGVuZGVuY2llcyB7CiAgICBpbXBsZW1lbnRhdGlvbigiYW5kcm9pZHguY29yZTpjb3JlLWt0eDoxLjE2LjAiKQogICAgaW1wbGVtZW50YXRpb24oImFuZHJvaWR4LmFwcGNvbXBhdDphcHBjb21wYXQ6MS43LjEiKQogICAgaW1wbGVtZW50YXRpb24oImNvbS5nb29nbGUuYW5kcm9pZC5tYXRlcmlhbDptYXRlcmlhbDoxLjEyLjAiKQogICAgaW1wbGVtZW50YXRpb24oImFuZHJvaWR4LmNvbnN0cmFpbnRsYXlvdXQ6Y29uc3RyYWludGxheW91dDoyLjIuMSIpCiAgICBpbXBsZW1lbnRhdGlvbigiYW5kcm9pZHgucmVjeWNsZXJ2aWV3OnJlY3ljbGVydmlldzoxLjQuMCIpCiAgICBpbXBsZW1lbnRhdGlvbigiYW5kcm9pZHguZnJhZ21lbnQ6ZnJhZ21lbnQta3R4OjEuOC45IikKICAgIGltcGxlbWVudGF0aW9uKCJhbmRyb2lkeC5kb2N1bWVudGZpbGU6ZG9jdW1lbnRmaWxlOjEuMC4xIikKICAgIGltcGxlbWVudGF0aW9uKCJhbmRyb2lkeC5saWZlY3ljbGU6bGlmZWN5Y2xlLXJ1bnRpbWUta3R4OjIuOS4xIikKICAgIGltcGxlbWVudGF0aW9uKCJvcmcuamV0YnJhaW5zLmtvdGxpbng6a290bGlueC1jb3JvdXRpbmVzLWFuZHJvaWQ6MS45LjAiKQogICAgaW1wbGVtZW50YXRpb24oImNvbS5zcXVhcmV1cC5va2h0dHAzOm9raHR0cDo0LjEyLjAiKQogICAgaW1wbGVtZW50YXRpb24oIm9yZy5uYW5vaHR0cGQ6bmFub2h0dHBkOjIuMy4xIikKfQo=
+import java.io.FileInputStream
+import java.util.Properties
+
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.chaquo.python")
+}
+
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties()
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(FileInputStream(keystorePropsFile))
+}
+
+android {
+    namespace = "com.ahmed.miftah"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.ahmed.miftah"
+        minSdk = 26
+        targetSdk = 35
+        versionCode = 2
+        versionName = "1.0.1"
+
+        // Chaquopy ships a native interpreter per ABI; arm64-v8a only keeps
+        // the APK lean (covers Ahmed's devices). Add "x86_64" here for
+        // emulator builds at ~+15 MB.
+        ndk {
+            abiFilters += "arm64-v8a"
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            if (keystorePropsFile.exists()) {
+                storeFile = rootProject.file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+}
+
+// Stage 3: embedded CPython 3.11 for skill scripts. Python sources live in
+// src/main/python; pip requirements stay empty by default (see
+// src/main/python/requirements.txt) — stdlib only.
+// NOTE: Chaquopy 15's DSL is this project-level `chaquopy` block. The old
+// `android.defaultConfig.python {}` form is a deprecated DSL available in
+// Groovy build files only — in Kotlin DSL it fails with
+// "Unresolved reference: python".
+chaquopy {
+    defaultConfig {
+        version = "3.11"
+    }
+}
+
+dependencies {
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation("androidx.documentfile:documentfile:1.0.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.nanohttpd:nanohttpd:2.3.1")
+}
