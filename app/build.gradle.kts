@@ -30,13 +30,6 @@ android {
         ndk {
             abiFilters += "arm64-v8a"
         }
-
-        // Stage 3: embedded CPython 3.11 for skill scripts. Python sources
-        // live in src/main/python; pip requirements stay empty by default
-        // (see src/main/python/requirements.txt) — stdlib only.
-        python {
-            version = "3.11"
-        }
     }
 
     signingConfigs {
@@ -68,6 +61,19 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+}
+
+// Stage 3: embedded CPython 3.11 for skill scripts. Python sources live in
+// src/main/python; pip requirements stay empty by default (see
+// src/main/python/requirements.txt) — stdlib only.
+// NOTE: Chaquopy 15's DSL is this project-level `chaquopy` block. The old
+// `android.defaultConfig.python {}` form is a deprecated DSL available in
+// Groovy build files only — in Kotlin DSL it fails with
+// "Unresolved reference: python".
+chaquopy {
+    defaultConfig {
+        version = "3.11"
     }
 }
 
