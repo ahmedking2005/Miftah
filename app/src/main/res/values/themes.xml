@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Miftah" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Full Material 3 color role mapping (tokens switch light/dark via colors.xml) -->
+        <item name="colorPrimary">@color/m3_primary</item>
+        <item name="colorOnPrimary">@color/m3_on_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/m3_on_primary_container</item>
+        <item name="colorPrimaryInverse">@color/m3_inverse_primary</item>
+        <item name="colorSecondary">@color/m3_secondary</item>
+        <item name="colorOnSecondary">@color/m3_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/m3_on_secondary_container</item>
+        <item name="colorTertiary">@color/m3_tertiary</item>
+        <item name="colorOnTertiary">@color/m3_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/m3_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/m3_on_tertiary_container</item>
+        <item name="colorError">@color/m3_error</item>
+        <item name="colorOnError">@color/m3_on_error</item>
+        <item name="colorErrorContainer">@color/m3_error_container</item>
+        <item name="colorOnErrorContainer">@color/m3_on_error_container</item>
+        <item name="colorSurface">@color/m3_surface</item>
+        <item name="colorOnSurface">@color/m3_on_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/m3_on_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_surface_container_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/m3_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/m3_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/m3_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/m3_surface_container_highest</item>
+        <item name="colorSurfaceDim">@color/m3_surface_dim</item>
+        <item name="colorSurfaceBright">@color/m3_surface_bright</item>
+        <item name="colorInverseSurface">@color/m3_inverse_surface</item>
+        <item name="colorInverseOnSurface">@color/m3_inverse_on_surface</item>
+        <item name="colorOutline">@color/m3_outline</item>
+        <item name="colorOutlineVariant">@color/m3_outline_variant</item>
+        <item name="colorScrim">@color/m3_scrim</item>
+        <item name="android:colorBackground">@color/m3_surface</item>
+
+        <!-- System bars blend with the soft surfaces -->
+        <item name="android:statusBarColor">@color/m3_surface</item>
+        <item name="android:navigationBarColor">@color/m3_surface_container</item>
+        <item name="android:windowBackground">@color/m3_surface</item>
+
+        <!-- Shape scale -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Miftah.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Miftah.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Miftah.LargeComponent</item>
+
+        <!-- Default component styles -->
+        <item name="materialCardViewStyle">@style/Widget.Miftah.Card</item>
+        <item name="materialButtonStyle">@style/Widget.Miftah.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Miftah.Button.Outlined</item>
+        <item name="materialButtonTextStyle">@style/Widget.Miftah.Button.Text</item>
+        <item name="textInputStyle">@style/Widget.Miftah.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.Miftah.BottomNav</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Miftah.Dialog</item>
+    </style>
+</resources>
