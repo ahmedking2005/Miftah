@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Miftah design system — dark palette (true dark tones, not inverted light). -->
+    <color name="m3_primary">#79D8C0</color>
+    <color name="m3_on_primary">#00382D</color>
+    <color name="m3_primary_container">#005143</color>
+    <color name="m3_on_primary_container">#94F0D8</color>
+    <color name="m3_inverse_primary">#006A5D</color>
+    <color name="m3_secondary">#AFCCC2</color>
+    <color name="m3_on_secondary">#1E332C</color>
+    <color name="m3_secondary_container">#364B44</color>
+    <color name="m3_on_secondary_container">#C9E8DE</color>
+    <color name="m3_tertiary">#A2CBE7</color>
+    <color name="m3_on_tertiary">#0B3245</color>
+    <color name="m3_tertiary_container">#274B5E</color>
+    <color name="m3_on_tertiary_container">#C0E9FA</color>
+    <color name="m3_error">#FFB4AB</color>
+    <color name="m3_on_error">#690005</color>
+    <color name="m3_error_container">#93000A</color>
+    <color name="m3_on_error_container">#FFDAD6</color>
+    <color name="m3_surface">#0E1412</color>
+    <color name="m3_on_surface">#DEE5E0</color>
+    <color name="m3_surface_variant">#3E4944</color>
+    <color name="m3_on_surface_variant">#BCC9C2</color>
+    <color name="m3_surface_container_lowest">#080D0B</color>
+    <color name="m3_surface_container_low">#161D1A</color>
+    <color name="m3_surface_container">#1A201D</color>
+    <color name="m3_surface_container_high">#242B27</color>
+    <color name="m3_surface_container_highest">#2F3632</color>
+    <color name="m3_surface_dim">#0E1412</color>
+    <color name="m3_surface_bright">#343B37</color>
+    <color name="m3_inverse_surface">#DEE5E0</color>
+    <color name="m3_inverse_on_surface">#2B3230</color>
+    <color name="m3_outline">#87938C</color>
+    <color name="m3_outline_variant">#3E4944</color>
+    <color name="m3_scrim">#000000</color>
+
+    <!-- Hero gradient stops (dark) -->
+    <color name="hero_gradient_start">#00382D</color>
+    <color name="hero_gradient_center">#005143</color>
+    <color name="hero_gradient_end">#274B5E</color>
+
+    <color name="brand">#79D8C0</color>
+    <color name="brand_secondary">#005143</color>
+    <color name="ic_launcher_background">#00382D</color>
+</resources>
