@@ -14,19 +14,32 @@ import com.ahmed.miftah.R
 /** Foreground service hosting the local OpenAI-compatible server. Off by default; user toggles it in Settings. */
 class ServerService : Service() {
     private var server: LocalServer? = null
+    private var boundPort: Int = -1
+    private var boundNetworkMode: Boolean = false
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val app = application as MiftahApp
         val port = app.settings.serverPort
+        val networkMode = app.settings.serverNetworkMode
         startForeground(NOTIF_ID, buildNotification(port))
+        // Port or network-reach changed while running: restart the socket so the
+        // new setting takes effect immediately (the UI relies on this honesty).
+        if (server != null && (port != boundPort || networkMode != boundNetworkMode)) {
+            server?.stop()
+            server = null
+        }
         if (server == null) {
             server = LocalServer(
                 port = port,
                 router = app.router,
                 unifiedKey = { app.settings.unifiedKey(app.vault) },
-                chainModels = { LocalServer.chainModelPairs(app.settings.chain) }
+                chainModels = { LocalServer.chainModelPairs(app.settings.chain) },
+                networkMode = networkMode
             ).apply { start() }
+            boundPort = port
+            boundNetworkMode = networkMode
             running = true
+            runningNetworkMode = networkMode
         }
         return START_STICKY
     }
@@ -35,6 +48,7 @@ class ServerService : Service() {
         server?.stop()
         server = null
         running = false
+        runningNetworkMode = false
         super.onDestroy()
     }
 
@@ -63,6 +77,10 @@ class ServerService : Service() {
         private const val CHANNEL = "miftah_server"
         private const val NOTIF_ID = 41
         @Volatile var running: Boolean = false
+            private set
+
+        /** The bind mode the live server actually started with (false = 127.0.0.1 only). */
+        @Volatile var runningNetworkMode: Boolean = false
             private set
 
         fun start(context: Context) {
