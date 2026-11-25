@@ -313,6 +313,86 @@ class GeminiClient(private val http: OkHttpClient = defaultHttpClient()) : ChatE
     }
 }
 
+/** Why a key test failed, in terms the UI can state honestly. */
+enum class KeyTestFailure { INVALID_KEY, RATE_LIMITED, SERVER_ERROR, NETWORK, OTHER }
+
+sealed class KeyTestResult {
+    data class Success(val modelCount: Int, val sampleModels: List<String>) : KeyTestResult()
+    data class Failure(val kind: KeyTestFailure, val httpCode: Int, val detail: String) : KeyTestResult()
+}
+
+/** Pure classification/parsing for key tests — JVM-testable, no I/O. */
+object KeyTestClassifier {
+    /** Maps an HTTP status to a failure kind; null means the key was accepted (2xx). */
+    fun classifyHttp(code: Int): KeyTestFailure? = when {
+        code in 200..299 -> null
+        code == 401 || code == 403 -> KeyTestFailure.INVALID_KEY
+        code == 429 -> KeyTestFailure.RATE_LIMITED
+        code in 500..599 -> KeyTestFailure.SERVER_ERROR
+        else -> KeyTestFailure.OTHER
+    }
+
+    /**
+     * Extracts model ids from a provider "list models" response body.
+     * OpenAI-compatible shape: {"data":[{"id":…}]}. Gemini shape:
+     * {"models":[{"name":"models/…"}]} (prefix stripped). Unparseable → empty.
+     */
+    fun parseModelIds(provider: ProviderDef, body: String): List<String> {
+        val root = try { JSONObject(body) } catch (e: Exception) { return emptyList() }
+        val out = ArrayList<String>()
+        when (provider.kind) {
+            ProviderKind.GEMINI -> {
+                val arr = root.optJSONArray("models") ?: return emptyList()
+                for (i in 0 until arr.length()) {
+                    val name = arr.optJSONObject(i)?.optString("name").orEmpty()
+                    if (name.isNotEmpty()) out.add(name.removePrefix("models/"))
+                }
+            }
+            ProviderKind.OPENAI_COMPAT -> {
+                val arr = root.optJSONArray("data") ?: return emptyList()
+                for (i in 0 until arr.length()) {
+                    val id = arr.optJSONObject(i)?.optString("id").orEmpty()
+                    if (id.isNotEmpty()) out.add(id)
+                }
+            }
+        }
+        return out
+    }
+}
+
+/**
+ * Validates one stored key with the cheapest real authenticated call the
+ * provider offers: GET {base}/models, using the same base URL and auth header
+ * as the chat clients. The key is used in memory only — never logged, never
+ * persisted anywhere new, and a failed test never marks or deletes the key.
+ */
+class KeyTester(private val http: OkHttpClient = defaultHttpClient()) {
+    suspend fun test(provider: ProviderDef, apiKey: String): KeyTestResult =
+        withContext(Dispatchers.IO) {
+            val builder = Request.Builder()
+                .url(provider.baseUrl.trimEnd('/') + "/models")
+                .get()
+            when (provider.kind) {
+                ProviderKind.GEMINI -> builder.header("x-goog-api-key", apiKey)
+                ProviderKind.OPENAI_COMPAT -> builder.header("Authorization", "Bearer $apiKey")
+            }
+            try {
+                http.newCall(builder.build()).execute().use { resp ->
+                    val bodyText = resp.body?.string() ?: ""
+                    val failure = KeyTestClassifier.classifyHttp(resp.code)
+                    if (failure == null) {
+                        val ids = KeyTestClassifier.parseModelIds(provider, bodyText)
+                        KeyTestResult.Success(ids.size, ids.take(3))
+                    } else {
+                        KeyTestResult.Failure(failure, resp.code, bodyText.take(200))
+                    }
+                }
+            } catch (e: Exception) {
+                KeyTestResult.Failure(KeyTestFailure.NETWORK, 0, e.message ?: "network error")
+            }
+        }
+}
+
 /** Routes to the right client implementation by provider kind. */
 class DispatchingEngine(
     private val openAi: ChatEngine = OpenAiCompatClient(),
