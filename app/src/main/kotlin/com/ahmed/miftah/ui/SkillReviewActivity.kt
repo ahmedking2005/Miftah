@@ -9,8 +9,10 @@ import com.ahmed.miftah.skills.SkillParser
 
 /**
  * Mandatory review screen: opening it marks the skill reviewed; only then can
- * it be enabled. Shows source, full SKILL.md content, bundled files, and the
- * honest note that bundled scripts are not executable in this version.
+ * it be enabled. Shows source, full SKILL.md content, bundled files, and —
+ * separately, with a warning — the bundled executable scripts (Stage 3:
+ * enabling lets the agent propose running them; every run still needs the
+ * user's approval, and scripts may use the network).
  */
 class SkillReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySkillReviewBinding
@@ -30,8 +32,16 @@ class SkillReviewActivity : AppCompatActivity() {
         binding.reviewSource.text = getString(R.string.skills_source, skill.source)
         binding.reviewDesc.text = skill.description
         val files = app.skillStore.filesOf(skill)
-        binding.reviewFiles.text = files.joinToString("\n") { path ->
-            if (SkillParser.isScriptFile(path)) "$path  ⚠ script — not executable in this version" else path
+        binding.reviewFiles.text = files.filterNot { SkillParser.isScriptFile(it) }.joinToString("\n")
+        // Scripts get their own warning card: enabling lets the agent propose
+        // running them (each run still needs approval; scripts may use the
+        // network). No scripts -> no card.
+        val scripts = app.skillStore.allScriptFilesOf(skill)
+        if (scripts.isEmpty()) {
+            binding.reviewScriptsCard.visibility = android.view.View.GONE
+        } else {
+            binding.reviewScriptsCard.visibility = android.view.View.VISIBLE
+            binding.reviewScriptsList.text = scripts.joinToString("\n")
         }
         binding.reviewBody.text = app.skillStore.fullTextOf(skill)
         binding.reviewEnableSwitch.setOnCheckedChangeListener(null)
