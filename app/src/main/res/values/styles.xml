@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== Cards: soft tonal surfaces, 24dp radius, no borders, no hard shadows ===== -->
+    <style name="Widget.Miftah.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLow</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Widget.Miftah.Card.High" parent="Widget.Miftah.Card">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
+    </style>
+
+    <!-- ===== Buttons: fully rounded pills, comfortable height ===== -->
+    <style name="Widget.Miftah.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="Widget.Miftah.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="Widget.Miftah.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+    </style>
+
+    <style name="Widget.Miftah.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <!-- Small tonal action used inside list cards -->
+    <style name="Widget.Miftah.Button.Tonal.Small" parent="Widget.Miftah.Button.Tonal">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Widget.Miftah.Button.Text.Small" parent="Widget.Miftah.Button.Text">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Circular / square icon-only button (send, row actions) -->
+    <style name="Widget.Miftah.IconButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Widget.Miftah.IconButton.Small" parent="Widget.Miftah.IconButton">
+        <item name="cornerRadius">20dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:minWidth">40dp</item>
+        <item name="android:minHeight">40dp</item>
+    </style>
+
+    <!-- ===== Text fields: soft filled boxes, 16dp radii, no square outlines ===== -->
+    <style name="Widget.Miftah.TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">?attr/colorSurfaceContainerHigh</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintTextColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- ===== Bottom navigation: tonal bar with pill active indicator ===== -->
+    <style name="Miftah.NavIndicatorStyle">
+        <item name="android:color">?attr/colorSecondaryContainer</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Miftah.NavIndicator</item>
+    </style>
+
+    <style name="Widget.Miftah.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/Miftah.NavIndicatorStyle</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainer</item>
+        <item name="elevation">0dp</item>
+        <item name="itemIconTint">@color/nav_icon_tint</item>
+        <item name="itemTextColor">@color/nav_icon_tint</item>
+    </style>
+
+    <!-- Dialogs: 28dp corners -->
+    <style name="ThemeOverlay.Miftah.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="dialogCornerRadius">28dp</item>
+        <item name="android:backgroundDimAmount">0.45</item>
+    </style>
+</resources>
