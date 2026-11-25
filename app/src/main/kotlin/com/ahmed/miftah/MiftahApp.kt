@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import com.ahmed.miftah.core.AppSettings
 import com.ahmed.miftah.core.DispatchingEngine
+import com.ahmed.miftah.core.MemoryStore
+import com.ahmed.miftah.core.SessionStore
 import com.ahmed.miftah.core.KeySource
 import com.ahmed.miftah.core.PrefsStringStore
 import com.ahmed.miftah.core.RateTracker
@@ -20,6 +22,8 @@ class MiftahApp : Application() {
     lateinit var rateTracker: RateTracker
     lateinit var router: Router
     lateinit var skillStore: SkillStore
+    lateinit var sessionStore: SessionStore
+    lateinit var memoryStore: MemoryStore
 
     override fun onCreate() {
         super.onCreate()
@@ -40,5 +44,11 @@ class MiftahApp : Application() {
             log = { requestLog.add(it) }
         )
         skillStore = SkillStore(this)
+        sessionStore = SessionStore(
+            PrefsStringStore(getSharedPreferences("miftah_sessions", Context.MODE_PRIVATE))
+        )
+        memoryStore = MemoryStore(
+            PrefsStringStore(getSharedPreferences("miftah_memory", Context.MODE_PRIVATE))
+        )
     }
 }
