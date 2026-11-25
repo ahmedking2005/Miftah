@@ -197,7 +197,15 @@ class ChatFragment : Fragment() {
         statusIdx: Int,
         allowedTools: List<String>?
     ) {
-        val registry = buildBuiltinRegistry(app.vault, app.skillStore)
+        // The batched-approval gate is wired in from the start: v1 tools are all
+        // read-only so it never fires yet, but the first future write tool plugs
+        // into grouped approval (one bundle, one decision) with no extra wiring.
+        val registry = buildBuiltinRegistry(
+            app.vault,
+            app.skillStore,
+            approvalGate = ChatApprovalGate(requireActivity()),
+            audit = { app.requestLog.add(it) }
+        )
         val loop = AgentLoop(app.router, registry) { app.requestLog.add(it) }
         var firstEvent = true
         val final = loop.run(
