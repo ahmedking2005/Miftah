@@ -8,7 +8,15 @@ data class ModelDef(
     /** Free-tier tracking defaults (requests per minute / per day, per key). Providers may change these. */
     val rpm: Int,
     val rpd: Int,
-    val toolCapable: Boolean = true
+    val toolCapable: Boolean = true,
+    /**
+     * Documented free-tier tokens-per-day for this model, or null when the
+     * provider does not document one in a form the catalog can stand behind.
+     * Null means "unknown" — quota displays show "—" and exclude it from sums
+     * rather than guessing. (Currently undocumented for every catalog model:
+     * providers publish token limits inconsistently per model/plan.)
+     */
+    val tpd: Int? = null
 )
 
 data class ProviderDef(
@@ -18,7 +26,17 @@ data class ProviderDef(
     val baseUrl: String, // OpenAI-compat base (…/v1) or Gemini base (…/v1beta)
     val keyHint: String,
     val keyUrl: String,
-    val models: List<ModelDef>
+    val models: List<ModelDef>,
+    /**
+     * Scope of the documented free-tier limits. Every provider in this catalog
+     * documents its free tier per account / organization / project (Gemini:
+     * per project; Groq & Cerebras & Mistral: per organization; OpenRouter &
+     * GitHub Models: per account), so the default is PER_ACCOUNT: several keys
+     * in the vault do NOT multiply the documented quota. The combined-balance
+     * aggregation honours this and only multiplies for a future provider whose
+     * documented tier is genuinely per key.
+     */
+    val quotaScope: QuotaScope = QuotaScope.PER_ACCOUNT
 )
 
 /**
