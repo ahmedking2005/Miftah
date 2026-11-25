@@ -34,6 +34,17 @@ class AppSettings(context: Context) {
             prefs.edit().putInt("server_port", value).apply()
         }
 
+    /**
+     * Network reach: when true the local server binds 0.0.0.0 so other devices on
+     * the same LAN / the user's Tailscale network can reach it. OFF by default —
+     * the server is loopback-only (127.0.0.1) unless the user opts in.
+     */
+    var serverNetworkMode: Boolean
+        get() = prefs.getBoolean("server_network_mode", false)
+        set(value) {
+            prefs.edit().putBoolean("server_network_mode", value).apply()
+        }
+
     /** Returns the unified local-server key, generating and storing it (encrypted) on first use. */
     fun unifiedKey(vault: Vault): String {
         vault.getCredential(CRED_UNIFIED)?.let { return it }
