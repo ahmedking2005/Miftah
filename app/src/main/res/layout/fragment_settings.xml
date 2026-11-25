@@ -471,7 +471,7 @@
                     android:text="@string/settings_check_updates"
                     app:backgroundTint="@android:color/white"
                     app:iconTint="#006A5D"
-                    app:textColor="#006A5D" />
+                    android:textColor="#006A5D" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/update_download_button"
@@ -483,7 +483,7 @@
                     android:visibility="gone"
                     app:backgroundTint="@android:color/white"
                     app:iconTint="#006A5D"
-                    app:textColor="#006A5D" />
+                    android:textColor="#006A5D" />
             </LinearLayout>
 
             <TextView
