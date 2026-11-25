@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Miftah</string>
+    <string name="app_tagline">Free LLM gateway · Agent · Skills</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_keys">Keys</string>
+    <string name="nav_skills">Skills</string>
+    <string name="nav_log">Log</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="chat_hint">Type a message…</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_agent_mode">Agent mode</string>
+    <string name="chat_no_keys">No API keys yet. Add a free provider key in the Keys tab to start chatting.</string>
+    <string name="chat_clear">Clear chat</string>
+    <string name="chat_pick_skill">Session skill</string>
+    <string name="chat_no_skill">None</string>
+    <string name="chat_thinking">Thinking…</string>
+    <string name="chat_error">Request failed on all providers. See the Log tab for details.</string>
+    <string name="chat_tool_call">Tool: %1$s</string>
+    <string name="chat_via">via %1$s · %2$s</string>
+
+    <string name="keys_title">Provider keys</string>
+    <string name="keys_chain_title">Fallback chain (tried in order)</string>
+    <string name="keys_chain_empty">The chain is empty. Add at least one model below — chat and the local server route through this chain.</string>
+    <string name="keys_chain_add">Add model to chain</string>
+    <string name="keys_chain_pick_provider">Pick a provider</string>
+    <string name="keys_chain_pick_model">Pick a model</string>
+    <string name="keys_keys_count">%1$d key(s)</string>
+    <string name="keys_get_key">Get a free key</string>
+    <string name="provider_add_key">Add key</string>
+    <string name="provider_key_label">Label (optional)</string>
+    <string name="provider_key_value">API key</string>
+    <string name="provider_delete_key">Delete</string>
+    <string name="provider_limits">Free-tier limits used for tracking: %1$d req/min · %2$d req/day per key (defaults from the in-app catalog; providers may change them).</string>
+    <string name="provider_models">Models</string>
+    <string name="provider_add_to_chain">Add to chain</string>
+    <string name="provider_in_chain">In chain</string>
+    <string name="github_token_title">GitHub token (optional, for the agent\'s GitHub tool)</string>
+    <string name="github_token_hint">Personal access token — stored encrypted, never shown to the model</string>
+    <string name="save">Save</string>
+
+    <string name="skills_title">Skills</string>
+    <string name="skills_empty">No skills yet. Import a SKILL.md folder or ZIP, or a GitHub repository, to give the agent ready-made expertise (Claude Code / Hermes style skills).</string>
+    <string name="skills_import_file">Import ZIP / folder</string>
+    <string name="skills_import_github">Import from GitHub</string>
+    <string name="skills_github_hint">Repository URL, e.g. https://github.com/user/repo</string>
+    <string name="skills_import">Import</string>
+    <string name="skills_importing">Importing…</string>
+    <string name="skills_import_failed">Import failed: %1$s</string>
+    <string name="skills_imported">Imported %1$d skill(s)</string>
+    <string name="skills_review_title">Review skill before enabling</string>
+    <string name="skills_source">Source: %1$s</string>
+    <string name="skills_files">Bundled files</string>
+    <string name="skills_script_warning">Bundled scripts are NOT executable in this version — instructions and reference files only.</string>
+    <string name="skills_enable">Enable skill</string>
+    <string name="skills_enabled">Enabled</string>
+    <string name="skills_disabled">Disabled</string>
+    <string name="skills_delete">Delete skill</string>
+    <string name="skills_safety_note">Skills are untrusted instruction data. They never receive your keys, and tool actions stay behind the approval gate.</string>
+
+    <string name="log_title">Request log</string>
+    <string name="log_empty">No requests yet.</string>
+    <string name="log_clear">Clear log</string>
+    <string name="log_ok">OK</string>
+    <string name="log_fail">Failed</string>
+    <string name="log_tool">Tool</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_server">Local server</string>
+    <string name="settings_server_desc">OpenAI-compatible server on 127.0.0.1 for apps on this phone (e.g. Miqass). Off by default.</string>
+    <string name="settings_server_run">Run local server</string>
+    <string name="settings_server_running">Running at http://127.0.0.1:%1$d/v1</string>
+    <string name="settings_server_stopped">Server is off</string>
+    <string name="settings_unified_key">Unified API key</string>
+    <string name="settings_regen_key">Regenerate</string>
+    <string name="settings_copy">Copy</string>
+    <string name="settings_advanced">Advanced settings</string>
+    <string name="settings_port">Server port</string>
+    <string name="settings_catalog">Provider/model catalog is built into the app and updated with app releases (free tiers change often).</string>
+    <string name="settings_about">About</string>
+    <string name="settings_about_text">Miftah pools the free tiers of several LLM providers behind one key, one local endpoint, an agent with read-only tools, and importable SKILL.md skills.\n\nInspired by FreeLLMAPI (github.com/tashfeenahmed/freellmapi, MIT License) — reimplemented natively for Android; no original code is bundled. Your keys stay encrypted on this device and are never sent anywhere except the provider they belong to.\n\nNo ads. No analytics.</string>
+    <string name="server_notification">Miftah local server is running on port %1$d</string>
+    <string name="server_channel">Local server</string>
+    <string name="copied">Copied</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="delete">Delete</string>
+    <string name="move_up">Up</string>
+    <string name="move_down">Down</string>
+    <string name="remove">Remove</string>
+</resources>
