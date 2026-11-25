@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.ahmed.miftah.MiftahApp
 import com.ahmed.miftah.R
 import com.ahmed.miftah.databinding.FragmentSettingsBinding
+import com.ahmed.miftah.server.ServerNet
 import com.ahmed.miftah.server.ServerService
 
 class SettingsFragment : Fragment() {
@@ -40,12 +41,29 @@ class SettingsFragment : Fragment() {
             refreshServerStatus()
         }
         binding.copyKeyButton.setOnClickListener {
-            val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            cm.setPrimaryClip(ClipData.newPlainText("Miftah unified key", app.settings.unifiedKey(app.vault)))
-            Toast.makeText(requireContext(), R.string.copied, Toast.LENGTH_SHORT).show()
+            copyToClipboard("Miftah unified key", app.settings.unifiedKey(app.vault))
         }
         binding.regenKeyButton.setOnClickListener {
             binding.unifiedKeyText.text = app.settings.regenerateUnifiedKey(app.vault)
+        }
+        binding.copyLocalUrlButton.setOnClickListener {
+            copyToClipboard("Miftah base URL", binding.connectLocalUrl.text.toString())
+        }
+        binding.copyLanUrlButton.setOnClickListener {
+            copyToClipboard("Miftah base URL", binding.connectLanUrl.text.toString())
+        }
+        binding.copyTsUrlButton.setOnClickListener {
+            copyToClipboard("Miftah base URL", binding.connectTsUrl.text.toString())
+        }
+        binding.networkModeSwitch.setOnCheckedChangeListener { _, checked ->
+            app.settings.serverNetworkMode = checked
+            if (ServerService.running) {
+                // Re-starting the service rebinds the socket with the new reach
+                // immediately; the state labels below reflect the live mode.
+                ServerService.start(requireContext())
+                Toast.makeText(requireContext(), R.string.settings_network_applied, Toast.LENGTH_SHORT).show()
+            }
+            refreshServerStatus()
         }
         binding.advancedToggle.setOnClickListener {
             binding.advancedSection.visibility =
@@ -55,6 +73,7 @@ class SettingsFragment : Fragment() {
             val port = binding.portInput.text?.toString()?.toIntOrNull()
             if (port != null && port in 1024..65535) {
                 app.settings.serverPort = port
+                if (ServerService.running) ServerService.start(requireContext())
                 Toast.makeText(requireContext(), R.string.save, Toast.LENGTH_SHORT).show()
                 refreshServerStatus()
             }
@@ -65,6 +84,12 @@ class SettingsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         refreshServerStatus()
+    }
+
+    private fun copyToClipboard(label: String, value: String) {
+        val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cm.setPrimaryClip(ClipData.newPlainText(label, value))
+        Toast.makeText(requireContext(), R.string.copied, Toast.LENGTH_SHORT).show()
     }
 
     private fun ensurePermissionThenStart() {
@@ -92,11 +117,53 @@ class SettingsFragment : Fragment() {
             if (checked) ensurePermissionThenStart() else ServerService.stop(requireContext())
             refreshServerStatus()
         }
-        binding.serverStatus.text = if (running) {
-            getString(R.string.settings_server_running, app.settings.serverPort)
-        } else {
-            getString(R.string.settings_server_stopped)
+        val networkPref = app.settings.serverNetworkMode
+        binding.networkModeSwitch.setOnCheckedChangeListener(null)
+        binding.networkModeSwitch.isChecked = networkPref
+        binding.networkModeSwitch.setOnCheckedChangeListener { _, checked ->
+            app.settings.serverNetworkMode = checked
+            if (ServerService.running) {
+                ServerService.start(requireContext())
+                Toast.makeText(requireContext(), R.string.settings_network_applied, Toast.LENGTH_SHORT).show()
+            }
+            refreshServerStatus()
         }
+        // Effective reach: what the live server bound with, else the saved preference.
+        val effectiveNetwork = if (running) ServerService.runningNetworkMode else networkPref
+        binding.serverStatus.text = when {
+            !running -> getString(R.string.settings_server_stopped)
+            effectiveNetwork -> getString(R.string.settings_server_running_network, app.settings.serverPort)
+            else -> getString(R.string.settings_server_running, app.settings.serverPort)
+        }
+        binding.networkModeState.text = getString(
+            if (effectiveNetwork) R.string.settings_network_state_on else R.string.settings_network_state_off
+        )
+        refreshConnectSection(running, effectiveNetwork)
+    }
+
+    private fun refreshConnectSection(running: Boolean, networkMode: Boolean) {
+        val port = app.settings.serverPort
+        binding.connectState.text = getString(
+            if (running) R.string.settings_connect_running else R.string.settings_connect_start_first
+        )
+        binding.connectLocalUrl.text = ServerNet.localBaseUrl(port)
+        if (!networkMode) {
+            binding.connectNetworkOffHint.visibility = View.VISIBLE
+            binding.connectNoAddress.visibility = View.GONE
+            binding.connectLanBlock.visibility = View.GONE
+            binding.connectTsBlock.visibility = View.GONE
+            return
+        }
+        binding.connectNetworkOffHint.visibility = View.GONE
+        val addresses = ServerNet.detectAdvertised()
+        val lan = addresses.firstOrNull { it.kind == ServerNet.AddressKind.LAN }
+        val tailscale = addresses.firstOrNull { it.kind == ServerNet.AddressKind.TAILSCALE }
+        binding.connectLanBlock.visibility = if (lan != null) View.VISIBLE else View.GONE
+        if (lan != null) binding.connectLanUrl.text = ServerNet.baseUrl(lan.ip, port)
+        binding.connectTsBlock.visibility = if (tailscale != null) View.VISIBLE else View.GONE
+        if (tailscale != null) binding.connectTsUrl.text = ServerNet.baseUrl(tailscale.ip, port)
+        binding.connectNoAddress.visibility =
+            if (lan == null && tailscale == null) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
