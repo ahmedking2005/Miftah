@@ -31,7 +31,11 @@ class LogFragment : Fragment() {
             val e = items[position]
             val time = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault()).format(Date(e.timeMs))
             val status = getString(if (e.success) R.string.log_ok else R.string.log_fail)
-            val kindLabel = if (e.kind == "tool") getString(R.string.log_tool) else e.kind
+            val kindLabel = when (e.kind) {
+                "tool" -> getString(R.string.log_tool)
+                "approval" -> getString(R.string.log_approval)
+                else -> e.kind
+            }
             holder.b.logLine1.text = "$time · $kindLabel · ${e.providerId} · ${e.modelId} · $status"
             holder.b.logLine2.text = e.detail + if (e.tokens > 0) " · ${e.tokens} tok" else ""
         }
