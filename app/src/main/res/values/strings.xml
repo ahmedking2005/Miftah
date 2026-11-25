@@ -52,7 +52,7 @@
     <string name="skills_review_title">Review skill before enabling</string>
     <string name="skills_source">Source: %1$s</string>
     <string name="skills_files">Bundled files</string>
-    <string name="skills_script_warning">Bundled scripts are NOT executable in this version — instructions and reference files only.</string>
+    <string name="skills_script_warning">This skill bundles executable Python scripts (listed above). Enabling the skill lets the agent PROPOSE running them — every run still needs your approval, runs in the skill\'s sandbox with no access to your keys, and scripts may use the network. Only enable skills whose scripts you have read and trust.</string>
     <string name="skills_enable">Enable skill</string>
     <string name="skills_enabled">Enabled</string>
     <string name="skills_disabled">Disabled</string>
@@ -103,6 +103,95 @@
     <string name="settings_catalog">Provider/model catalog is built into the app and updated with app releases (free tiers change often).</string>
     <string name="settings_about">About</string>
     <string name="settings_about_text">Miftah pools the free tiers of several LLM providers behind one key, one local endpoint, an agent with read-only tools, and importable SKILL.md skills.\n\nInspired by FreeLLMAPI (github.com/tashfeenahmed/freellmapi, MIT License) — reimplemented natively for Android; no original code is bundled. Your keys stay encrypted on this device and are never sent anywhere except the provider they belong to.\n\nNo ads. No analytics.</string>
+    <string name="nav_balance">Balance</string>
+
+    <string name="provider_test_key">Test</string>
+    <string name="keytest_testing">Testing…</string>
+    <string name="keytest_ok">Key works — %1$d model(s) available</string>
+    <string name="keytest_ok_samples">Key works — %1$d model(s): %2$s</string>
+    <string name="keytest_invalid">Invalid key (HTTP %1$d) — the provider rejected it. The key was NOT deleted.</string>
+    <string name="keytest_rate_limited">Key accepted, but rate-limited right now (HTTP 429). Try again later.</string>
+    <string name="keytest_server">Provider server error (HTTP %1$d) — this is on the provider, try again later.</string>
+    <string name="keytest_network">Network error — could not reach the provider.</string>
+    <string name="keytest_failed">Test failed (HTTP %1$d).</string>
+    <string name="log_keytest">Key test</string>
+
+    <string name="guide_title">Start here</string>
+    <string name="guide_intro">Miftah needs one free provider key to start chatting. Four quick steps:</string>
+    <string name="guide_step1">1. Pick any provider from the list below — every one has a free tier.</string>
+    <string name="guide_step2">2. Open the provider\'s page and create a free API key:</string>
+    <string name="guide_step3">3. Tap the provider below, paste the key into the Add-key form, and save it.</string>
+    <string name="guide_step4">4. Press Test next to the saved key to confirm it works — then come back to Chat.</string>
+    <string name="guide_get_key_for">Free key — %1$s</string>
+    <string name="chat_guide_text">New here? You need one free provider key to start.</string>
+    <string name="chat_guide_button">Open the guide</string>
+
+    <string name="settings_version">Version %1$s (%2$d)</string>
+    <string name="settings_check_updates">Check for updates</string>
+    <string name="update_checking">Checking…</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_available_msg">Miftah %1$s is available.</string>
+    <string name="update_download">Download</string>
+    <string name="update_up_to_date">You\'re on the latest version.</string>
+    <string name="update_check_failed">Could not check for updates (no connection or server error).</string>
+
+    <string name="balance_title">My combined balance</string>
+    <string name="balance_remaining_label">Estimated requests remaining today</string>
+    <string name="balance_used_of">Used today: %1$d of %2$d documented</string>
+    <string name="balance_used_of_partial">Used today: %1$d · totals cover %2$d of %3$d providers (the rest don\'t document a limit)</string>
+    <string name="balance_tokens">Documented daily token budget: %1$s</string>
+    <string name="balance_note">Estimates from the providers\' documented free tiers — providers expose no live balance, so treat these as planning figures, not exact balances. Each provider\'s figure is the sum of its catalog models\' documented daily limits; per-account/project tiers are counted once, never multiplied by the number of keys.</string>
+    <string name="balance_empty">No provider keys yet. Add a free key in the Keys tab and your combined balance will appear here.</string>
+    <string name="balance_keys_account">%1$d key(s) · limits per account</string>
+    <string name="balance_keys_per_key">%1$d key(s) · limits per key</string>
+    <string name="balance_used_limit">Used today %1$d / %2$s</string>
+    <string name="balance_remaining">≈ %1$s left today</string>
+    <string name="balance_unknown">—</string>
+
+    <string name="services_title">Services (agent write tools)</string>
+    <string name="services_note">Saved services let the agent call real APIs (e.g. Gumroad) through the http_request tool. Keys are stored encrypted, injected by the app, and never shown to the model. Every call still needs your approval.</string>
+    <string name="services_empty">No services saved yet.</string>
+    <string name="services_name_hint">Service name (e.g. Gumroad)</string>
+    <string name="services_base_url_hint">Base URL (e.g. https://api.gumroad.com/v2)</string>
+    <string name="services_header_hint">Key header name</string>
+    <string name="services_prefix_hint">Value prefix (e.g. Bearer )</string>
+    <string name="services_key_hint">API key — stored encrypted</string>
+    <string name="services_add">Add service</string>
+    <string name="services_invalid_name">Enter a service name</string>
+    <string name="services_invalid_url">Enter a valid http(s) base URL</string>
+    <string name="services_invalid_header">Enter a valid header name</string>
+    <string name="services_invalid_key">Enter the API key</string>
+    <string name="skills_scripts_title">Bundled scripts</string>
+
+    <string name="chat_history">History</string>
+    <string name="chat_compress">Compress</string>
+    <string name="chat_context_label">Context</string>
+    <string name="chat_compressed_marker">Context compressed — earlier turns were summarized to fit the model.</string>
+    <string name="chat_trimmed_marker">Context was over the limit and summarization failed — the oldest %1$d turn(s) were dropped for this request only.</string>
+    <string name="chat_nothing_to_compress">Nothing worth compressing yet.</string>
+    <string name="chat_compress_failed">Could not summarize the context right now.</string>
+    <string name="chat_save_skill">Save as skill</string>
+    <string name="chat_save_skill_text">This run used %1$d tools. Save the workflow as a reusable skill?</string>
+    <string name="chat_skill_saved">Draft saved — review it before enabling.</string>
+    <string name="chat_skill_failed">Could not save the skill draft.</string>
+
+    <string name="history_title">Past conversations</string>
+    <string name="history_new">New session</string>
+    <string name="history_empty">No saved conversations yet. Chats are saved on this device automatically.</string>
+    <string name="history_meta">%1$s · %2$d messages</string>
+    <string name="history_delete_title">Delete conversation?</string>
+    <string name="history_delete_confirm">This saved conversation will be removed from this device.</string>
+
+    <string name="memory_title">Long-term memory</string>
+    <string name="memory_note">Notes the agent saved with your approval, plus notes you add yourself. They are included in the chat context at the start of each conversation.</string>
+    <string name="memory_open">Open memory</string>
+    <string name="memory_hint">Add a note about yourself…</string>
+    <string name="memory_add">Add</string>
+    <string name="memory_empty">No memory notes yet.</string>
+    <string name="memory_edit">Edit</string>
+    <string name="memory_delete_title">Delete note?</string>
+    <string name="memory_delete_confirm">This memory note will be removed and no longer included in chats.</string>
+
     <string name="server_notification">Miftah local server is running on port %1$d</string>
     <string name="server_channel">Local server</string>
     <string name="copied">Copied</string>
