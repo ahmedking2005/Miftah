@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مِفتاح</string>
+    <string name="app_tagline">بوابة نماذج مجانية · وكيل · مهارات</string>
+    <string name="nav_chat">المحادثة</string>
+    <string name="nav_keys">المفاتيح</string>
+    <string name="nav_skills">المهارات</string>
+    <string name="nav_log">السجل</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <string name="chat_hint">اكتب رسالة…</string>
+    <string name="chat_send">إرسال</string>
+    <string name="chat_agent_mode">وضع الوكيل</string>
+    <string name="chat_no_keys">لا توجد مفاتيح API بعد. أضف مفتاح مزوّد مجاني من تبويب «المفاتيح» لبدء المحادثة.</string>
+    <string name="chat_clear">مسح المحادثة</string>
+    <string name="chat_pick_skill">مهارة الجلسة</string>
+    <string name="chat_no_skill">بدون</string>
+    <string name="chat_thinking">جارٍ التفكير…</string>
+    <string name="chat_error">فشل الطلب عند كل المزوّدين. راجع تبويب «السجل» للتفاصيل.</string>
+    <string name="chat_tool_call">أداة: %1$s</string>
+    <string name="chat_via">عبر %1$s · %2$s</string>
+
+    <string name="keys_title">مفاتيح المزوّدين</string>
+    <string name="keys_chain_title">سلسلة التحويل (تُجرَّب بالترتيب)</string>
+    <string name="keys_chain_empty">السلسلة فارغة. أضف نموذجًا واحدًا على الأقل من الأسفل — المحادثة والسيرفر المحلي يمرّان عبر هذه السلسلة.</string>
+    <string name="keys_chain_add">إضافة نموذج للسلسلة</string>
+    <string name="keys_chain_pick_provider">اختر مزوّدًا</string>
+    <string name="keys_chain_pick_model">اختر نموذجًا</string>
+    <string name="keys_keys_count">%1$d مفتاح</string>
+    <string name="keys_get_key">احصل على مفتاح مجاني</string>
+    <string name="provider_add_key">إضافة مفتاح</string>
+    <string name="provider_key_label">اسم تعريفي (اختياري)</string>
+    <string name="provider_key_value">مفتاح API</string>
+    <string name="provider_delete_key">حذف</string>
+    <string name="provider_limits">حدود الخطة المجانية المستخدمة للتتبّع: %1$d طلب/دقيقة · %2$d طلب/يوم لكل مفتاح (قيم افتراضية من كتالوج التطبيق؛ قد يغيّرها المزوّدون).</string>
+    <string name="provider_models">النماذج</string>
+    <string name="provider_add_to_chain">أضف للسلسلة</string>
+    <string name="provider_in_chain">في السلسلة</string>
+    <string name="github_token_title">رمز GitHub (اختياري، لأداة GitHub عند الوكيل)</string>
+    <string name="github_token_hint">رمز وصول شخصي — يُحفظ مشفّرًا ولا يظهر للنموذج أبدًا</string>
+    <string name="save">حفظ</string>
+
+    <string name="skills_title">المهارات</string>
+    <string name="skills_empty">لا مهارات بعد. استورد مجلدًا أو ملف ZIP فيه SKILL.md، أو مستودع GitHub، لتمنح الوكيل خبرات جاهزة (بأسلوب مهارات Claude Code / Hermes).</string>
+    <string name="skills_import_file">استيراد ZIP / مجلد</string>
+    <string name="skills_import_github">استيراد من GitHub</string>
+    <string name="skills_github_hint">رابط المستودع، مثال: https://github.com/user/repo</string>
+    <string name="skills_import">استيراد</string>
+    <string name="skills_importing">جارٍ الاستيراد…</string>
+    <string name="skills_import_failed">فشل الاستيراد: %1$s</string>
+    <string name="skills_imported">تم استيراد %1$d مهارة</string>
+    <string name="skills_review_title">راجع المهارة قبل تفعيلها</string>
+    <string name="skills_source">المصدر: %1$s</string>
+    <string name="skills_files">الملفات المرفقة</string>
+    <string name="skills_script_warning">السكربتات المرفقة غير قابلة للتنفيذ في هذه النسخة — تعليمات وملفات مرجعية فقط.</string>
+    <string name="skills_enable">تفعيل المهارة</string>
+    <string name="skills_enabled">مفعّلة</string>
+    <string name="skills_disabled">معطّلة</string>
+    <string name="skills_delete">حذف المهارة</string>
+    <string name="skills_safety_note">المهارات بيانات تعليمات غير موثوقة. لا تصل إلى مفاتيحك أبدًا، وأفعال الأدوات تظل خلف بوابة الموافقات.</string>
+
+    <string name="log_title">سجل الطلبات</string>
+    <string name="log_empty">لا طلبات بعد.</string>
+    <string name="log_clear">مسح السجل</string>
+    <string name="log_ok">ناجح</string>
+    <string name="log_fail">فاشل</string>
+    <string name="log_tool">أداة</string>
+
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_server">السيرفر المحلي</string>
+    <string name="settings_server_desc">سيرفر متوافق مع OpenAI على 127.0.0.1 لتطبيقات هذا الهاتف (مثل مِقَصّ). مقفل افتراضيًا.</string>
+    <string name="settings_server_run">تشغيل السيرفر المحلي</string>
+    <string name="settings_server_running">يعمل على http://127.0.0.1:%1$d/v1</string>
+    <string name="settings_server_stopped">السيرفر متوقف</string>
+    <string name="settings_unified_key">مفتاح API الموحّد</string>
+    <string name="settings_regen_key">تجديد</string>
+    <string name="settings_copy">نسخ</string>
+    <string name="settings_advanced">إعدادات متقدمة</string>
+    <string name="settings_port">منفذ السيرفر</string>
+    <string name="settings_catalog">كتالوج المزوّدين والنماذج مدمج في التطبيق ويُحدَّث مع إصداراته (الخطط المجانية تتغير كثيرًا).</string>
+    <string name="settings_about">حول التطبيق</string>
+    <string name="settings_about_text">«مِفتاح» يجمّع الخطط المجانية لعدة مزوّدي نماذج لغوية خلف مفتاح واحد ونقطة اتصال محلية واحدة، مع وكيل بأدوات قراءة فقط ومهارات SKILL.md قابلة للاستيراد.\n\nمستلهَم من مشروع FreeLLMAPI (github.com/tashfeenahmed/freellmapi، رخصة MIT) — أُعيد تنفيذه ناتيف لأندرويد دون تضمين أي كود أصلي. مفاتيحك تبقى مشفّرة على هذا الجهاز ولا تُرسل إلا للمزوّد الذي تخصّه.\n\nبلا إعلانات. بلا تحليلات.</string>
+    <string name="server_notification">سيرفر مِفتاح المحلي يعمل على المنفذ %1$d</string>
+    <string name="server_channel">السيرفر المحلي</string>
+    <string name="copied">تم النسخ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="ok">حسنًا</string>
+    <string name="delete">حذف</string>
+    <string name="move_up">لأعلى</string>
+    <string name="move_down">لأسفل</string>
+    <string name="remove">إزالة</string>
+</resources>
