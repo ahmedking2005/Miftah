@@ -6,7 +6,7 @@ import org.json.JSONObject
 
 data class LogEntry(
     val timeMs: Long,
-    val kind: String, // chat | server | tool
+    val kind: String, // chat | server | tool | approval (bundle decisions; modelId holds the bundle id)
     val providerId: String,
     val modelId: String,
     val success: Boolean,
