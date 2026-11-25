@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardBackgroundColor="?attr/colorSurfaceContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_icon_circle_secondary"
+            android:contentDescription="@null"
+            android:padding="9dp"
+            android:src="@drawable/ic_model"
+            app:tint="?attr/colorOnSecondaryContainer" />
+
+        <TextView
+            android:id="@+id/chain_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chain_up"
+            style="@style/Widget.Miftah.IconButton.Small"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/move_up"
+            app:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_arrow_up"
+            app:iconTint="?attr/colorOnSurfaceVariant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chain_down"
+            style="@style/Widget.Miftah.IconButton.Small"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/move_down"
+            app:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_arrow_down"
+            app:iconTint="?attr/colorOnSurfaceVariant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chain_remove"
+            style="@style/Widget.Miftah.IconButton.Small"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/remove"
+            app:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_close"
+            app:iconTint="?attr/colorError" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
