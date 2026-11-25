@@ -72,6 +72,9 @@ class SettingsFragment : Fragment() {
         binding.memoryOpenButton.setOnClickListener {
             startActivity(android.content.Intent(requireContext(), MemoryActivity::class.java))
         }
+        binding.logOpenButton.setOnClickListener {
+            startActivity(android.content.Intent(requireContext(), LogActivity::class.java))
+        }
         binding.advancedToggle.setOnClickListener {
             binding.advancedSection.visibility =
                 if (binding.advancedSection.visibility == View.VISIBLE) View.GONE else View.VISIBLE
