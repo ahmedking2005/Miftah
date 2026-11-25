@@ -34,16 +34,22 @@ private fun fetchText(http: OkHttpClient, url: String, headers: Map<String, Stri
 }
 
 /**
- * Registers the v1 read-only tool batch. All executors read credentials from the vault directly.
- * [approvalGate] + [audit] are forwarded to the registry so future write tools plug into the
- * batched-approval flow (one bundle, one decision) without further wiring.
+ * Registers the built-in tool batch: read-only tools, Stage 2 write tools
+ * (service tools — GitHub + generic HTTP) and the Stage 3 skill-script
+ * runner. All executors read credentials from the vault directly; write
+ * tools flow through the batched-approval gate via the registry.
+ * [scriptRunner] is injected so tests can substitute a fake Python bridge;
+ * production passes a Chaquopy-backed runner.
  */
 fun buildBuiltinRegistry(
     vault: Vault,
     skillStore: SkillStore,
     http: OkHttpClient = defaultHttpClient(),
     approvalGate: ApprovalGate? = null,
-    audit: (com.ahmed.miftah.core.LogEntry) -> Unit = {}
+    audit: (com.ahmed.miftah.core.LogEntry) -> Unit = {},
+    scriptRunner: ScriptRunner? = null,
+    memoryStore: com.ahmed.miftah.core.MemoryStore? = null,
+    sessionStore: com.ahmed.miftah.core.SessionStore? = null
 ): ToolRegistry {
     val registry = ToolRegistry(approvalGate = approvalGate, audit = audit)
 
@@ -131,11 +137,53 @@ fun buildBuiltinRegistry(
         val path = args.getString("path")
         val skill = skillStore.enabledSkills().firstOrNull { it.name.equals(name, ignoreCase = true) }
             ?: return@register "Error: no enabled skill named '$name'"
-        if (com.ahmed.miftah.skills.SkillParser.isScriptFile(path)) {
-            "Scripts are not executable in this version. File '$path' is listed for reference only."
-        } else {
-            skillStore.readFile(skill, path)?.take(6000) ?: "Error: file not found in skill"
+        skillStore.readFile(skill, path)?.take(6000) ?: "Error: file not found in skill"
+    }
+
+    // Stage 3: run a skill's bundled Python script (write-class: every run
+    // passes through the batched approval gate; the approval card states
+    // that the script may use the network).
+    registry.register(
+        SkillContext.runSkillScriptTool,
+        approvalDescriber = { args ->
+            "run_skill_script · ${args.optString("skill")}/${args.optString("script")} · " +
+                "script may use network · runs in the skill sandbox, no keys"
         }
+    ) { args ->
+        val runner = scriptRunner
+            ?: return@register "Error: script execution is not available in this build."
+        val name = args.optString("skill")
+        val skill = skillStore.enabledSkills().firstOrNull { it.name.equals(name, ignoreCase = true) }
+            ?: return@register "Error: no enabled skill named '$name'"
+        // allowed-tools enforcement: a skill that declares allowed-tools may
+        // only run scripts when run_skill_script is among them.
+        if (!com.ahmed.miftah.skills.SkillScripts.canRunScript(skill.allowedTools)) {
+            return@register "Error: skill '${skill.name}' does not allow run_skill_script (its allowed-tools: ${skill.allowedTools.joinToString()})."
+        }
+        val scriptArg = args.optString("script")
+        // A skill can only run its OWN scripts: resolution is rooted at this
+        // skill's dir and rejects anything escaping its scripts/ folder.
+        val resolved = com.ahmed.miftah.skills.SkillScripts.resolveScript(skillStore.skillDir(skill), scriptArg)
+            ?: return@register "Error: '$scriptArg' is not a runnable script of skill '${skill.name}'. Runnable scripts: " +
+                (skillStore.scriptsOf(skill).joinToString().ifBlank { "(none)" })
+        val sandbox = skillStore.sandboxDir(skill)
+        com.ahmed.miftah.skills.SkillScripts.prepareSandbox(skillStore.skillDir(skill), sandbox)
+        val sandboxScript = java.io.File(sandbox, resolved.relativeTo(skillStore.skillDir(skill)).path)
+        val result = runner.run(
+            sandboxScript,
+            com.ahmed.miftah.skills.SkillScripts.splitArgs(args.optString("args")),
+            sandbox
+        )
+        ScriptRunCore.formatForModel(result)
+    }
+
+    // Stage 2: write tools against GitHub and arbitrary REST services.
+    registerServiceTools(registry, vault, http)
+
+    // Cross-session memory: save_memory (write — batched approval) and
+    // search_history (read) over the persisted sessions.
+    if (memoryStore != null && sessionStore != null) {
+        registerMemoryTools(registry, memoryStore, sessionStore)
     }
 
     return registry
