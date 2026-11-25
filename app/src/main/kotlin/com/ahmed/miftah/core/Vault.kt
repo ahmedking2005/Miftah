@@ -75,4 +75,36 @@ class Vault(context: Context) {
     fun removeCredential(name: String) {
         prefs.edit().remove("cred_$name").apply()
     }
+
+    /** The stored GitHub personal access token (agent GitHub tools), or null when not configured. */
+    fun githubToken(): String? =
+        getCredential(AppSettings.CRED_GITHUB_TOKEN)?.takeIf { it.isNotBlank() }
+
+    // ---------- named service credentials (Stage 2) ----------
+    // Stored as one JSON array; each entry's API key is KeystoreCrypto
+    // ciphertext (see ServiceStore). Tools resolve services by id/name and
+    // inject the key themselves — keys never reach the model layer.
+    fun services(): List<ServiceCredential> =
+        ServiceStore.decode(prefs.getString("services", null)) { KeystoreCrypto.decrypt(it) }
+
+    fun addService(
+        name: String, baseUrl: String, headerName: String, authPrefix: String, apiKey: String
+    ): ServiceCredential {
+        val service = ServiceStore.newService(name, baseUrl, headerName, authPrefix, apiKey)
+        val updated = services() + service
+        prefs.edit()
+            .putString("services", ServiceStore.encode(updated) { KeystoreCrypto.encrypt(it) })
+            .apply()
+        return service
+    }
+
+    fun removeService(id: String) {
+        val updated = services().filterNot { it.id == id }
+        prefs.edit()
+            .putString("services", ServiceStore.encode(updated) { KeystoreCrypto.encrypt(it) })
+            .apply()
+    }
+
+    fun serviceByIdOrName(idOrName: String): ServiceCredential? =
+        ServiceStore.find(services(), idOrName)
 }
