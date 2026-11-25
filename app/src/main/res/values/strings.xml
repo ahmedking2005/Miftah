@@ -65,13 +65,36 @@
     <string name="log_ok">OK</string>
     <string name="log_fail">Failed</string>
     <string name="log_tool">Tool</string>
+    <string name="log_approval">Approval</string>
+
+    <string name="approval_title">Approval required</string>
+    <string name="approval_summary">%1$d grouped action(s) — %2$s</string>
+    <string name="approval_destination">Destination: %1$s</string>
+    <string name="approval_hint">One approval covers exactly the items listed. Uncheck any item to exclude it — excluded items are dropped and logged. Anything new the agent proposes afterwards will ask again.</string>
+    <string name="approval_approve">Approve</string>
+    <string name="approval_reject">Reject</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_server">Local server</string>
-    <string name="settings_server_desc">OpenAI-compatible server on 127.0.0.1 for apps on this phone (e.g. Miqass). Off by default.</string>
+    <string name="settings_server_desc">OpenAI-compatible server for apps on this phone (e.g. Miqass) — and, with network reach on, your other devices too. Off by default.</string>
     <string name="settings_server_run">Run local server</string>
     <string name="settings_server_running">Running at http://127.0.0.1:%1$d/v1</string>
     <string name="settings_server_stopped">Server is off</string>
+    <string name="settings_server_running_network">Running on port %1$d — reachable on this phone and your network</string>
+    <string name="settings_connect_title">Connect another app</string>
+    <string name="settings_connect_hint">Works with any app that supports a custom OpenAI endpoint — paste the base URL and the unified key (in the server card above).</string>
+    <string name="settings_connect_local_label">Base URL — this phone</string>
+    <string name="settings_connect_lan_label">Base URL — Wi-Fi / LAN</string>
+    <string name="settings_connect_tailscale_label">Base URL — Tailscale</string>
+    <string name="settings_connect_start_first">The server is off. Start it with the switch above — these addresses work while it runs.</string>
+    <string name="settings_connect_running">The server is running — these addresses are live now.</string>
+    <string name="settings_connect_network_off">For other devices, turn on network reach in Advanced settings below, then use the Wi-Fi or Tailscale address shown here.</string>
+    <string name="settings_connect_no_address">No Wi-Fi or Tailscale address found right now. Join a network, then reopen Settings.</string>
+    <string name="settings_network_mode">Network reach (LAN / Tailscale)</string>
+    <string name="settings_network_mode_warning">Warning: anyone on the same network who has your unified key can use your providers and their free quotas. Only enable this on trusted networks.</string>
+    <string name="settings_network_state_on">Network reach is on — the server listens on all interfaces; the unified key is still required for every request.</string>
+    <string name="settings_network_state_off">Network reach is off — the server listens on this phone only (127.0.0.1).</string>
+    <string name="settings_network_applied">Network reach updated — server restarted</string>
     <string name="settings_unified_key">Unified API key</string>
     <string name="settings_regen_key">Regenerate</string>
     <string name="settings_copy">Copy</string>
