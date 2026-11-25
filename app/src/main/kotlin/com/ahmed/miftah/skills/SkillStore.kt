@@ -91,6 +91,20 @@ class SkillStore(private val context: Context) {
 
     fun skillDir(skill: Skill): File = File(root, skill.dirName)
 
+    /** Runnable Python scripts bundled by this skill (Python files under `scripts/`), relative paths. */
+    fun scriptsOf(skill: Skill): List<String> = SkillScripts.listScripts(skillDir(skill))
+
+    /** Every bundled script-type file (any extension) — for the review screen. */
+    fun allScriptFilesOf(skill: Skill): List<String> = SkillScripts.listAllScriptFiles(skillDir(skill))
+
+    /**
+     * Per-skill sandbox directory (app-private): the script working dir.
+     * Skill files are synced into it by [SkillScripts.prepareSandbox];
+     * scripts run there and cannot touch the original skill files.
+     */
+    fun sandboxDir(skill: Skill): File =
+        File(context.filesDir, "skill_sandbox/" + skill.dirName).apply { mkdirs() }
+
     fun bodyOf(skill: Skill): String {
         val f = File(skillDir(skill), "SKILL.md")
         return if (f.exists()) SkillParser.parse(f.readText(), skill.name).body else ""
@@ -142,6 +156,22 @@ class SkillStore(private val context: Context) {
 
     /** Imports skills from an already-extracted directory tree. */
     fun importDirectory(dir: File, source: String): List<Skill> = harvest(dir, source)
+
+    /**
+     * Imports one SKILL.md text as a new library skill (used for agent-created
+     * drafts). The skill lands disabled and unreviewed, exactly like an
+     * imported one — the normal review/enable discipline applies unchanged.
+     */
+    fun importMarkdown(markdown: String, source: String): Skill? {
+        val staging = File(root, ".staging_" + UUID.randomUUID().toString())
+        staging.mkdirs()
+        return try {
+            File(staging, "SKILL.md").writeText(markdown)
+            harvest(staging, source).firstOrNull()
+        } finally {
+            staging.deleteRecursively()
+        }
+    }
 
     private fun harvest(fromDir: File, source: String): List<Skill> {
         val skillFiles = fromDir.walkTopDown()
