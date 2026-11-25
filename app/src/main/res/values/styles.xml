@@ -88,13 +88,13 @@
     </style>
 
     <!-- ===== Bottom navigation: tonal bar with pill active indicator ===== -->
-    <style name="Miftah.NavIndicatorStyle">
+    <style name="MiftahNavIndicatorStyle">
         <item name="android:color">?attr/colorSecondaryContainer</item>
         <item name="shapeAppearance">@style/ShapeAppearance.Miftah.NavIndicator</item>
     </style>
 
     <style name="Widget.Miftah.BottomNav" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemActiveIndicatorStyle">@style/Miftah.NavIndicatorStyle</item>
+        <item name="itemActiveIndicatorStyle">@style/MiftahNavIndicatorStyle</item>
         <item name="backgroundTint">?attr/colorSurfaceContainer</item>
         <item name="elevation">0dp</item>
         <item name="itemIconTint">@color/nav_icon_tint</item>
