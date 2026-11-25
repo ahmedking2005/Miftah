@@ -30,11 +30,10 @@
         <item name="colorSurfaceContainerHighest">@color/m3_surface_container_highest</item>
         <item name="colorSurfaceDim">@color/m3_surface_dim</item>
         <item name="colorSurfaceBright">@color/m3_surface_bright</item>
-        <item name="colorInverseSurface">@color/m3_inverse_surface</item>
-        <item name="colorInverseOnSurface">@color/m3_inverse_on_surface</item>
+        <item name="colorSurfaceInverse">@color/m3_inverse_surface</item>
+        <item name="colorOnSurfaceInverse">@color/m3_inverse_on_surface</item>
         <item name="colorOutline">@color/m3_outline</item>
         <item name="colorOutlineVariant">@color/m3_outline_variant</item>
-        <item name="colorScrim">@color/m3_scrim</item>
         <item name="android:colorBackground">@color/m3_surface</item>
 
         <!-- System bars blend with the soft surfaces -->
@@ -51,7 +50,6 @@
         <item name="materialCardViewStyle">@style/Widget.Miftah.Card</item>
         <item name="materialButtonStyle">@style/Widget.Miftah.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Miftah.Button.Outlined</item>
-        <item name="materialButtonTextStyle">@style/Widget.Miftah.Button.Text</item>
         <item name="textInputStyle">@style/Widget.Miftah.TextInputLayout</item>
         <item name="bottomNavigationStyle">@style/Widget.Miftah.BottomNav</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Miftah.Dialog</item>
