@@ -6,10 +6,12 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         maven { url = uri("https://repo1.maven.org/maven2") }
+        // Chaquopy runtime artifacts (Stage 3 Python) live on Chaquo's repo.
+        maven { url = uri("https://chaquo.com/maven") }
     }
 }
 rootProject.name = "Miftah"
