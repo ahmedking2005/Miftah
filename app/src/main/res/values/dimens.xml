@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing rhythm: 4 / 8 / 12 / 16 / 20 / 24 -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">12dp</dimen>
+    <dimen name="space_l">16dp</dimen>
+    <dimen name="space_xl">20dp</dimen>
+    <dimen name="space_xxl">24dp</dimen>
+    <dimen name="screen_padding">20dp</dimen>
+
+    <!-- Corner radii -->
+    <dimen name="radius_card">24dp</dimen>
+    <dimen name="radius_sheet">28dp</dimen>
+    <dimen name="radius_field">16dp</dimen>
+    <dimen name="radius_bubble">20dp</dimen>
+
+    <dimen name="touch_target">48dp</dimen>
+    <dimen name="icon_circle_size">44dp</dimen>
+</resources>
