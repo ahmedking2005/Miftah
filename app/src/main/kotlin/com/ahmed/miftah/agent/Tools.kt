@@ -11,7 +11,14 @@ fun interface ToolExecutor {
 
 data class RegisteredTool(
     val def: ToolDef,
-    val executor: ToolExecutor
+    val executor: ToolExecutor,
+    /**
+     * Optional tool-specific approval description (e.g. http_request shows the
+     * full resolved URL + method; run_skill_script states the script may use
+     * the network). Must NEVER include secrets. Falls back to
+     * [ApprovalItem.of] when null or blank.
+     */
+    val approvalDescriber: ((JSONObject) -> String)? = null
 )
 
 /**
@@ -46,11 +53,28 @@ class ToolRegistry(
 ) {
     private val tools = LinkedHashMap<String, RegisteredTool>()
 
-    fun register(def: ToolDef, executor: ToolExecutor) {
+    fun register(
+        def: ToolDef,
+        approvalDescriber: ((JSONObject) -> String)? = null,
+        executor: ToolExecutor
+    ) {
         require(def.readOnly || approvalGate != null) {
             "Write tool '${def.name}' cannot be registered without an ApprovalGate"
         }
-        tools[def.name] = RegisteredTool(def, executor)
+        tools[def.name] = RegisteredTool(def, executor, approvalDescriber)
+    }
+
+    /**
+     * Builds the [ApprovalItem] shown to the user for one call, letting the
+     * tool's own describer produce the exact text when it has one (still
+     * digest-pinned to the raw args, so the decision covers exactly this call).
+     */
+    fun describeItem(name: String, args: JSONObject): ApprovalItem {
+        val base = ApprovalItem.of(name, args)
+        val custom = tools[name]?.approvalDescriber?.let {
+            try { it(args) } catch (e: Exception) { null }
+        }
+        return if (custom.isNullOrBlank()) base else base.copy(description = custom.take(240))
     }
 
     fun defs(allowedTools: List<String>? = null): List<ToolDef> {
@@ -73,7 +97,7 @@ class ToolRegistry(
         val tool = tools[name] ?: return "Error: unknown tool '$name'"
         if (tool.def.readOnly) return runExecutor(tool, args)
         if (approvalGate == null) return "Error: tool '$name' requires approval but no gate is configured"
-        val execution = executeBundle(listOf(ApprovalItem.of(name, args)))
+        val execution = executeBundle(listOf(describeItem(name, args)))
         return execution.results.single().result
     }
 
