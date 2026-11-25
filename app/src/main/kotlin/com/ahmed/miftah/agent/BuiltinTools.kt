@@ -33,13 +33,19 @@ private fun fetchText(http: OkHttpClient, url: String, headers: Map<String, Stri
     }
 }
 
-/** Registers the v1 read-only tool batch. All executors read credentials from the vault directly. */
+/**
+ * Registers the v1 read-only tool batch. All executors read credentials from the vault directly.
+ * [approvalGate] + [audit] are forwarded to the registry so future write tools plug into the
+ * batched-approval flow (one bundle, one decision) without further wiring.
+ */
 fun buildBuiltinRegistry(
     vault: Vault,
     skillStore: SkillStore,
-    http: OkHttpClient = defaultHttpClient()
+    http: OkHttpClient = defaultHttpClient(),
+    approvalGate: ApprovalGate? = null,
+    audit: (com.ahmed.miftah.core.LogEntry) -> Unit = {}
 ): ToolRegistry {
-    val registry = ToolRegistry(approvalGate = null)
+    val registry = ToolRegistry(approvalGate = approvalGate, audit = audit)
 
     registry.register(
         ToolDef(
