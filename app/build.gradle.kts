@@ -4,6 +4,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.chaquo.python")
 }
 
 val keystorePropsFile = rootProject.file("keystore.properties")
@@ -22,6 +23,20 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
+
+        // Chaquopy ships a native interpreter per ABI; arm64-v8a only keeps
+        // the APK lean (covers Ahmed's devices). Add "x86_64" here for
+        // emulator builds at ~+15 MB.
+        ndk {
+            abiFilters += "arm64-v8a"
+        }
+
+        // Stage 3: embedded CPython 3.11 for skill scripts. Python sources
+        // live in src/main/python; pip requirements stay empty by default
+        // (see src/main/python/requirements.txt) — stdlib only.
+        python {
+            version = "3.11"
+        }
     }
 
     signingConfigs {
