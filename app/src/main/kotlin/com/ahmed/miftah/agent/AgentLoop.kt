@@ -16,7 +16,7 @@ data class AgentEvent(
 
 /**
  * The agent loop: the model may call tools; each call is executed by the
- * registry (read-only in v1), written to the audit log, shown to the user via
+ * registry, written to the audit log, shown to the user via
  * [onEvent], and fed back to the model. Stops at [maxSteps] tool rounds.
  * If the session skill restricts tools (allowed-tools), the offered tool set
  * is filtered accordingly.
@@ -73,7 +73,7 @@ class AgentLoop(
             // Pass 2: one bundle, one user decision for all write calls in this round.
             var bundleId: String? = null
             if (writeCalls.isNotEmpty()) {
-                val items = writeCalls.map { ApprovalItem.of(it.name, writeArgs[it.id] ?: JSONObject()) }
+                val items = writeCalls.map { registry.describeItem(it.name, writeArgs[it.id] ?: JSONObject()) }
                 val execution = registry.executeBundle(items)
                 bundleId = execution.bundle.id
                 execution.results.forEachIndexed { i, r -> resultsByCallId[writeCalls[i].id] = r.result }
