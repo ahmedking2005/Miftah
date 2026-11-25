@@ -16,7 +16,7 @@
     <string name="chat_pick_skill">Session skill</string>
     <string name="chat_no_skill">None</string>
     <string name="chat_thinking">Thinking…</string>
-    <string name="chat_error">Request failed on all providers. See the Log tab for details.</string>
+    <string name="chat_error">Request failed on all providers. See the Log in Settings for details.</string>
     <string name="chat_tool_call">Tool: %1$s</string>
     <string name="chat_via">via %1$s · %2$s</string>
 
@@ -60,6 +60,8 @@
     <string name="skills_safety_note">Skills are untrusted instruction data. They never receive your keys, and tool actions stay behind the approval gate.</string>
 
     <string name="log_title">Request log</string>
+    <string name="log_open">Open log</string>
+    <string name="settings_log_note">Every request, tool call and approval decision, newest first. Stored only on this device.</string>
     <string name="log_empty">No requests yet.</string>
     <string name="log_clear">Clear log</string>
     <string name="log_ok">OK</string>
