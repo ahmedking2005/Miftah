@@ -52,7 +52,7 @@
     <string name="skills_review_title">راجع المهارة قبل تفعيلها</string>
     <string name="skills_source">المصدر: %1$s</string>
     <string name="skills_files">الملفات المرفقة</string>
-    <string name="skills_script_warning">السكربتات المرفقة غير قابلة للتنفيذ في هذه النسخة — تعليمات وملفات مرجعية فقط.</string>
+    <string name="skills_script_warning">هذه المهارة ترفق سكربتات Python قابلة للتنفيذ (مدرجة أعلاه). تفعيل المهارة يسمح للوكيل بأن يقترح تشغيلها — وكل تشغيل يظل بحاجة إلى موافقتك، ويعمل داخل صندوق المهارة المعزول دون أي وصول إلى مفاتيحك، وقد تستخدم السكربتات الشبكة. لا تفعّل إلا المهارات التي قرأت سكربتاتها وتثق بها.</string>
     <string name="skills_enable">تفعيل المهارة</string>
     <string name="skills_enabled">مفعّلة</string>
     <string name="skills_disabled">معطّلة</string>
@@ -103,6 +103,95 @@
     <string name="settings_catalog">كتالوج المزوّدين والنماذج مدمج في التطبيق ويُحدَّث مع إصداراته (الخطط المجانية تتغير كثيرًا).</string>
     <string name="settings_about">حول التطبيق</string>
     <string name="settings_about_text">«مِفتاح» يجمّع الخطط المجانية لعدة مزوّدي نماذج لغوية خلف مفتاح واحد ونقطة اتصال محلية واحدة، مع وكيل بأدوات قراءة فقط ومهارات SKILL.md قابلة للاستيراد.\n\nمستلهَم من مشروع FreeLLMAPI (github.com/tashfeenahmed/freellmapi، رخصة MIT) — أُعيد تنفيذه ناتيف لأندرويد دون تضمين أي كود أصلي. مفاتيحك تبقى مشفّرة على هذا الجهاز ولا تُرسل إلا للمزوّد الذي تخصّه.\n\nبلا إعلانات. بلا تحليلات.</string>
+    <string name="nav_balance">رصيدي</string>
+
+    <string name="provider_test_key">اختبار</string>
+    <string name="keytest_testing">جارٍ الاختبار…</string>
+    <string name="keytest_ok">المفتاح يعمل — %1$d نموذج متاح</string>
+    <string name="keytest_ok_samples">المفتاح يعمل — %1$d نموذج: %2$s</string>
+    <string name="keytest_invalid">مفتاح غير صالح (HTTP %1$d) — رفضه المزوّد. لم يتم حذف المفتاح.</string>
+    <string name="keytest_rate_limited">المفتاح مقبول، لكنه محدود المعدل الآن (HTTP 429). حاول لاحقًا.</string>
+    <string name="keytest_server">خطأ في خادم المزوّد (HTTP %1$d) — المشكلة عند المزوّد، حاول لاحقًا.</string>
+    <string name="keytest_network">خطأ في الشبكة — تعذّر الوصول إلى المزوّد.</string>
+    <string name="keytest_failed">فشل الاختبار (HTTP %1$d).</string>
+    <string name="log_keytest">اختبار مفتاح</string>
+
+    <string name="guide_title">ابدأ هنا</string>
+    <string name="guide_intro">يحتاج «مِفتاح» إلى مفتاح مزوّد مجاني واحد لبدء المحادثة. أربع خطوات سريعة:</string>
+    <string name="guide_step1">1. اختر أي مزوّد من القائمة بالأسفل — كلهم لديهم خطة مجانية.</string>
+    <string name="guide_step2">2. افتح صفحة المزوّد وأنشئ مفتاح API مجانيًا:</string>
+    <string name="guide_step3">3. اضغط المزوّد بالأسفل، والصق المفتاح في نموذج «إضافة مفتاح»، واحفظه.</string>
+    <string name="guide_step4">4. اضغط «اختبار» بجانب المفتاح المحفوظ للتأكد أنه يعمل — ثم ارجع إلى المحادثة.</string>
+    <string name="guide_get_key_for">مفتاح مجاني — %1$s</string>
+    <string name="chat_guide_text">جديد هنا؟ تحتاج إلى مفتاح مزوّد مجاني واحد للبدء.</string>
+    <string name="chat_guide_button">افتح الدليل</string>
+
+    <string name="settings_version">الإصدار %1$s (%2$d)</string>
+    <string name="settings_check_updates">التحقق من التحديثات</string>
+    <string name="update_checking">جارٍ التحقق…</string>
+    <string name="update_available_title">يوجد تحديث</string>
+    <string name="update_available_msg">الإصدار %1$s من «مِفتاح» متاح.</string>
+    <string name="update_download">تنزيل</string>
+    <string name="update_up_to_date">أنت على أحدث إصدار.</string>
+    <string name="update_check_failed">تعذّر التحقق من التحديثات (لا اتصال أو خطأ في الخادم).</string>
+
+    <string name="balance_title">رصيدي المجمّع</string>
+    <string name="balance_remaining_label">الطلبات المتبقية اليوم (تقدير)</string>
+    <string name="balance_used_of">المستخدم اليوم: %1$d من %2$d موثّق</string>
+    <string name="balance_used_of_partial">المستخدم اليوم: %1$d · الإجمالي يغطي %2$d من %3$d مزوّدين (الباقون لا يوثّقون حدًّا)</string>
+    <string name="balance_tokens">ميزانية التوكنات اليومية الموثّقة: %1$s</string>
+    <string name="balance_note">تقديرات مبنية على الخطط المجانية الموثّقة من المزوّدين — لا يوفّر المزوّدون رصيدًا حيًّا، فاعتبرها أرقامًا للتخطيط لا أرصدة دقيقة. رقم كل مزوّد هو مجموع الحدود اليومية الموثّقة لنماذجه في الكتالوج؛ والخطط المحدودة لكل حساب/مشروع تُحسب مرة واحدة فقط، ولا تُضرب أبدًا في عدد المفاتيح.</string>
+    <string name="balance_empty">لا مفاتيح مزوّدين بعد. أضف مفتاحًا مجانيًا من تبويب «المفاتيح» وسيظهر رصيدك المجمّع هنا.</string>
+    <string name="balance_keys_account">%1$d مفتاح · الحدود لكل حساب</string>
+    <string name="balance_keys_per_key">%1$d مفتاح · الحدود لكل مفتاح</string>
+    <string name="balance_used_limit">المستخدم اليوم %1$d / %2$s</string>
+    <string name="balance_remaining">المتبقي اليوم ≈ %1$s</string>
+    <string name="balance_unknown">—</string>
+
+    <string name="services_title">الخدمات (أدوات الكتابة للوكيل)</string>
+    <string name="services_note">الخدمات المحفوظة تتيح للوكيل استدعاء واجهات حقيقية (مثل Gumroad) عبر أداة http_request. المفاتيح تُحفظ مشفّرة، ويحقنها التطبيق نفسه، ولا تظهر للنموذج أبدًا. وكل استدعاء يظل بحاجة إلى موافقتك.</string>
+    <string name="services_empty">لا توجد خدمات محفوظة بعد.</string>
+    <string name="services_name_hint">اسم الخدمة (مثال: Gumroad)</string>
+    <string name="services_base_url_hint">العنوان الأساسي (مثال: https://api.gumroad.com/v2)</string>
+    <string name="services_header_hint">اسم ترويسة المفتاح</string>
+    <string name="services_prefix_hint">بادئة القيمة (مثال: Bearer )</string>
+    <string name="services_key_hint">مفتاح API — يُحفظ مشفّرًا</string>
+    <string name="services_add">إضافة خدمة</string>
+    <string name="services_invalid_name">أدخل اسم الخدمة</string>
+    <string name="services_invalid_url">أدخل عنوانًا أساسيًا صالحًا يبدأ بـ http(s)</string>
+    <string name="services_invalid_header">أدخل اسم ترويسة صالحًا</string>
+    <string name="services_invalid_key">أدخل مفتاح API</string>
+    <string name="skills_scripts_title">السكربتات المرفقة</string>
+
+    <string name="chat_history">المحادثات</string>
+    <string name="chat_compress">ضغط السياق</string>
+    <string name="chat_context_label">السياق</string>
+    <string name="chat_compressed_marker">تم ضغط السياق — لُخّصت الأدوار السابقة لتناسب النموذج.</string>
+    <string name="chat_trimmed_marker">تجاوز السياق الحد وفشل التلخيص — حُذفت أقدم %1$d أدوار لهذا الطلب فقط.</string>
+    <string name="chat_nothing_to_compress">لا يوجد ما يستحق الضغط بعد.</string>
+    <string name="chat_compress_failed">تعذّر تلخيص السياق الآن.</string>
+    <string name="chat_save_skill">حفظ كمهارة</string>
+    <string name="chat_save_skill_text">استخدمت هذه الجولة %1$d أدوات. تحفظ سير العمل كمهارة قابلة لإعادة الاستخدام؟</string>
+    <string name="chat_skill_saved">تم حفظ المسودة — راجعها قبل التفعيل.</string>
+    <string name="chat_skill_failed">تعذّر حفظ مسودة المهارة.</string>
+
+    <string name="history_title">المحادثات السابقة</string>
+    <string name="history_new">جلسة جديدة</string>
+    <string name="history_empty">لا محادثات محفوظة بعد. تُحفظ المحادثات على هذا الجهاز تلقائيًا.</string>
+    <string name="history_meta">%1$s · %2$d رسالة</string>
+    <string name="history_delete_title">حذف المحادثة؟</string>
+    <string name="history_delete_confirm">ستُحذف هذه المحادثة المحفوظة من هذا الجهاز.</string>
+
+    <string name="memory_title">الذاكرة طويلة المدى</string>
+    <string name="memory_note">ملاحظات حفظها الوكيل بموافقتك، وملاحظات تضيفها بنفسك. تُضمَّن في سياق المحادثة عند بدء كل محادثة.</string>
+    <string name="memory_open">فتح الذاكرة</string>
+    <string name="memory_hint">أضف ملاحظة عن نفسك…</string>
+    <string name="memory_add">إضافة</string>
+    <string name="memory_empty">لا ملاحظات ذاكرة بعد.</string>
+    <string name="memory_edit">تعديل</string>
+    <string name="memory_delete_title">حذف الملاحظة؟</string>
+    <string name="memory_delete_confirm">ستُحذف ملاحظة الذاكرة هذه ولن تُضمَّن في المحادثات بعد الآن.</string>
+
     <string name="server_notification">سيرفر مِفتاح المحلي يعمل على المنفذ %1$d</string>
     <string name="server_channel">السيرفر المحلي</string>
     <string name="copied">تم النسخ</string>
