@@ -1,0 +1,3 @@
+# Miftah intentionally ships NO third-party Python packages by default:
+# skill scripts run on the standard library only. Keeping this file empty
+# keeps the APK small and the script surface auditable.
