@@ -34,6 +34,7 @@ class LogFragment : Fragment() {
             val kindLabel = when (e.kind) {
                 "tool" -> getString(R.string.log_tool)
                 "approval" -> getString(R.string.log_approval)
+                "keytest" -> getString(R.string.log_keytest)
                 else -> e.kind
             }
             holder.b.logLine1.text = "$time · $kindLabel · ${e.providerId} · ${e.modelId} · $status"
