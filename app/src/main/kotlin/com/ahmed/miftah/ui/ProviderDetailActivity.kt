@@ -4,14 +4,20 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmed.miftah.MiftahApp
 import com.ahmed.miftah.R
 import com.ahmed.miftah.core.ChainEntry
+import com.ahmed.miftah.core.KeyTestFailure
+import com.ahmed.miftah.core.KeyTestResult
+import com.ahmed.miftah.core.KeyTester
+import com.ahmed.miftah.core.LogEntry
 import com.ahmed.miftah.core.ModelDef
 import com.ahmed.miftah.core.ProviderDef
 import com.ahmed.miftah.core.Providers
@@ -19,11 +25,17 @@ import com.ahmed.miftah.core.StoredKey
 import com.ahmed.miftah.databinding.ActivityProviderBinding
 import com.ahmed.miftah.databinding.ItemKeyBinding
 import com.ahmed.miftah.databinding.ItemModelBinding
+import kotlinx.coroutines.launch
 
 class ProviderDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProviderBinding
     private lateinit var provider: ProviderDef
     private val app: MiftahApp get() = application as MiftahApp
+    private val keyTester = KeyTester()
+
+    /** Display-only test outcomes per key id; a failed test never touches the stored key. */
+    private val testResults = HashMap<String, String>()
+    private val testRunning = HashSet<String>()
 
     private inner class KeysAdapter : RecyclerView.Adapter<KeysAdapter.Holder>() {
         var items: List<StoredKey> = emptyList()
@@ -37,9 +49,62 @@ class ProviderDetailActivity : AppCompatActivity() {
             holder.b.keyText.text = "$label · …${k.secret.takeLast(4)} · ${app.rateTracker.usesToday(k.id)} today"
             holder.b.keyDelete.setOnClickListener {
                 app.vault.removeKey(provider.id, k.id)
+                testResults.remove(k.id)
                 refresh()
             }
+            val running = k.id in testRunning
+            holder.b.keyTest.isEnabled = !running
+            holder.b.keyTest.text = getString(if (running) R.string.keytest_testing else R.string.provider_test_key)
+            holder.b.keyTest.setOnClickListener { testKey(k) }
+            val result = testResults[k.id]
+            holder.b.keyTestResult.visibility = if (result == null) View.GONE else View.VISIBLE
+            holder.b.keyTestResult.text = result ?: ""
         }
+    }
+
+    /**
+     * Runs the cheapest real validation call for this key and shows the honest
+     * outcome. The secret is used in memory only; the audit log records the
+     * provider and the result class — never the key.
+     */
+    private fun testKey(key: StoredKey) {
+        if (!testRunning.add(key.id)) return
+        notifyKeyChanged(key.id)
+        lifecycleScope.launch {
+            val result = keyTester.test(provider, key.secret)
+            testRunning.remove(key.id)
+            testResults[key.id] = when (result) {
+                is KeyTestResult.Success ->
+                    if (result.sampleModels.isEmpty()) getString(R.string.keytest_ok, result.modelCount)
+                    else getString(R.string.keytest_ok_samples, result.modelCount, result.sampleModels.joinToString(", "))
+                is KeyTestResult.Failure -> when (result.kind) {
+                    KeyTestFailure.INVALID_KEY -> getString(R.string.keytest_invalid, result.httpCode)
+                    KeyTestFailure.RATE_LIMITED -> getString(R.string.keytest_rate_limited)
+                    KeyTestFailure.SERVER_ERROR -> getString(R.string.keytest_server, result.httpCode)
+                    KeyTestFailure.NETWORK -> getString(R.string.keytest_network)
+                    KeyTestFailure.OTHER -> getString(R.string.keytest_failed, result.httpCode)
+                }
+            }
+            app.requestLog.add(
+                LogEntry(
+                    timeMs = System.currentTimeMillis(),
+                    kind = "keytest",
+                    providerId = provider.id,
+                    modelId = "",
+                    success = result is KeyTestResult.Success,
+                    detail = when (result) {
+                        is KeyTestResult.Success -> "key test ok · ${result.modelCount} models"
+                        is KeyTestResult.Failure -> "key test failed · ${result.kind} · HTTP ${result.httpCode}"
+                    }
+                )
+            )
+            notifyKeyChanged(key.id)
+        }
+    }
+
+    private fun notifyKeyChanged(keyId: String) {
+        val idx = keysAdapter.items.indexOfFirst { it.id == keyId }
+        if (idx >= 0) keysAdapter.notifyItemChanged(idx)
     }
 
     private inner class ModelsAdapter : RecyclerView.Adapter<ModelsAdapter.Holder>() {
