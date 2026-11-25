@@ -10,7 +10,6 @@ import com.ahmed.miftah.databinding.ActivityMainBinding
 import com.ahmed.miftah.ui.BalanceFragment
 import com.ahmed.miftah.ui.ChatFragment
 import com.ahmed.miftah.ui.KeysFragment
-import com.ahmed.miftah.ui.LogFragment
 import com.ahmed.miftah.ui.SettingsFragment
 import com.ahmed.miftah.ui.SkillsFragment
 import com.ahmed.miftah.ui.UpdateUi
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_keys -> KeysFragment()
                 R.id.nav_balance -> BalanceFragment()
                 R.id.nav_skills -> SkillsFragment()
-                R.id.nav_log -> LogFragment()
                 R.id.nav_settings -> SettingsFragment()
                 else -> ChatFragment()
             }
