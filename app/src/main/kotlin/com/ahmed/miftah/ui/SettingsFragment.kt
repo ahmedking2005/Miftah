@@ -13,11 +13,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.ahmed.miftah.MiftahApp
 import com.ahmed.miftah.R
+import com.ahmed.miftah.core.UpdateCheckResult
+import com.ahmed.miftah.core.UpdateChecker
 import com.ahmed.miftah.databinding.FragmentSettingsBinding
 import com.ahmed.miftah.server.ServerNet
 import com.ahmed.miftah.server.ServerService
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -65,6 +69,9 @@ class SettingsFragment : Fragment() {
             }
             refreshServerStatus()
         }
+        binding.memoryOpenButton.setOnClickListener {
+            startActivity(android.content.Intent(requireContext(), MemoryActivity::class.java))
+        }
         binding.advancedToggle.setOnClickListener {
             binding.advancedSection.visibility =
                 if (binding.advancedSection.visibility == View.VISIBLE) View.GONE else View.VISIBLE
@@ -78,7 +85,46 @@ class SettingsFragment : Fragment() {
                 refreshServerStatus()
             }
         }
+        binding.versionText.text = getString(
+            R.string.settings_version,
+            UpdateUi.installedVersionName(requireContext()),
+            UpdateUi.installedVersionCode(requireContext())
+        )
+        binding.updateCheckButton.setOnClickListener { checkForUpdates() }
+        binding.updateDownloadButton.setOnClickListener {
+            pendingApkUrl?.let { UpdateUi.openDownload(requireContext(), it) }
+        }
         refreshServerStatus()
+    }
+
+    /** APK URL of the newest release, set when a manual check finds an update. */
+    private var pendingApkUrl: String? = null
+
+    /** Manual update check: reports every outcome honestly (available / up to date / failed). */
+    private fun checkForUpdates() {
+        binding.updateCheckButton.isEnabled = false
+        binding.updateDownloadButton.visibility = View.GONE
+        binding.updateStatus.visibility = View.VISIBLE
+        binding.updateStatus.text = getString(R.string.update_checking)
+        val current = UpdateUi.installedVersionCode(requireContext())
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = UpdateChecker.check(current)
+            app.settings.lastUpdateCheckMs = System.currentTimeMillis()
+            if (_binding == null) return@launch
+            binding.updateCheckButton.isEnabled = true
+            when (result) {
+                is UpdateCheckResult.UpdateAvailable -> {
+                    pendingApkUrl = result.release.apkUrl
+                    binding.updateStatus.text =
+                        getString(R.string.update_available_msg, result.release.versionName)
+                    binding.updateDownloadButton.visibility = View.VISIBLE
+                }
+                UpdateCheckResult.UpToDate ->
+                    binding.updateStatus.text = getString(R.string.update_up_to_date)
+                is UpdateCheckResult.Failed ->
+                    binding.updateStatus.text = getString(R.string.update_check_failed)
+            }
+        }
     }
 
     override fun onResume() {
