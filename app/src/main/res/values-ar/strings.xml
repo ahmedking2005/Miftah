@@ -16,7 +16,7 @@
     <string name="chat_pick_skill">مهارة الجلسة</string>
     <string name="chat_no_skill">بدون</string>
     <string name="chat_thinking">جارٍ التفكير…</string>
-    <string name="chat_error">فشل الطلب عند كل المزوّدين. راجع تبويب «السجل» للتفاصيل.</string>
+    <string name="chat_error">فشل الطلب عند كل المزوّدين. راجع «السجل» في الإعدادات للتفاصيل.</string>
     <string name="chat_tool_call">أداة: %1$s</string>
     <string name="chat_via">عبر %1$s · %2$s</string>
 
@@ -60,6 +60,8 @@
     <string name="skills_safety_note">المهارات بيانات تعليمات غير موثوقة. لا تصل إلى مفاتيحك أبدًا، وأفعال الأدوات تظل خلف بوابة الموافقات.</string>
 
     <string name="log_title">سجل الطلبات</string>
+    <string name="log_open">فتح السجل</string>
+    <string name="settings_log_note">كل طلب واستدعاء أداة وقرار موافقة، الأحدث أولًا. محفوظ على هذا الجهاز فقط.</string>
     <string name="log_empty">لا طلبات بعد.</string>
     <string name="log_clear">مسح السجل</string>
     <string name="log_ok">ناجح</string>
