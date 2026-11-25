@@ -45,6 +45,13 @@ class AppSettings(context: Context) {
             prefs.edit().putBoolean("server_network_mode", value).apply()
         }
 
+    /** Last update-check attempt (auto or manual); the automatic check is throttled to once a day. */
+    var lastUpdateCheckMs: Long
+        get() = prefs.getLong("last_update_check_ms", 0L)
+        set(value) {
+            prefs.edit().putLong("last_update_check_ms", value).apply()
+        }
+
     /** Returns the unified local-server key, generating and storing it (encrypted) on first use. */
     fun unifiedKey(vault: Vault): String {
         vault.getCredential(CRED_UNIFIED)?.let { return it }
