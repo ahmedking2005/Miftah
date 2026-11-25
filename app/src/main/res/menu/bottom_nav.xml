@@ -4,6 +4,5 @@
     <item android:id="@+id/nav_keys" android:icon="@drawable/ic_nav_key" android:title="@string/nav_keys" />
     <item android:id="@+id/nav_balance" android:icon="@drawable/ic_nav_balance" android:title="@string/nav_balance" />
     <item android:id="@+id/nav_skills" android:icon="@drawable/ic_nav_skills" android:title="@string/nav_skills" />
-    <item android:id="@+id/nav_log" android:icon="@drawable/ic_nav_log" android:title="@string/nav_log" />
     <item android:id="@+id/nav_settings" android:icon="@drawable/ic_nav_settings" android:title="@string/nav_settings" />
 </menu>
